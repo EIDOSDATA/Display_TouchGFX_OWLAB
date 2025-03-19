@@ -18,8 +18,8 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "NEXT_BTN_LOGO",
-            "X": 392,
-            "Y": 275,
+            "X": 741,
+            "Y": 503,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
@@ -72,8 +72,8 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "PREV_BTN_LOADING",
-            "X": 392,
-            "Y": 275,
+            "X": 63,
+            "Y": 506,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",

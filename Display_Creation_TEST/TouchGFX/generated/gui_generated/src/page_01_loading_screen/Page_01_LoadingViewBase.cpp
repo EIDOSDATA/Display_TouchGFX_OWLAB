@@ -17,7 +17,7 @@ Page_01_LoadingViewBase::Page_01_LoadingViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(75, 209, 95));
     add(box1);
 
-    PREV_BTN_LOADING.setXY(392, 275);
+    PREV_BTN_LOADING.setXY(63, 506);
     PREV_BTN_LOADING.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     PREV_BTN_LOADING.setLabelText(touchgfx::TypedText(T___SINGLEUSE_SJ7G));
     PREV_BTN_LOADING.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));

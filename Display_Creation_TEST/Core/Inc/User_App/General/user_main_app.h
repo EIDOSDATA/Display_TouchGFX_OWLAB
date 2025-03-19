@@ -27,7 +27,6 @@ extern "C"
 /*
  * Message Print Stinrg
  * */
-extern char print_str[100];
 
 /*
  * Decimal Value
@@ -36,15 +35,15 @@ extern char print_str[100];
 typedef struct
 {
 	uint32_t dec_100M;  // 100,000,000 자리
-	uint32_t dec_10M;   // 10,000,000 자리
-	uint32_t dec_1M;    // 1,000,000 자리
-	uint32_t dec_100K;  // 100,000 자리
-	uint32_t dec_10K;   // 10,000 자리
-	uint32_t dec_1K;    // 1,000 자리
-	uint32_t dec_100;   // 100 자리
-	uint32_t dec_10;    // 10 자리
-	uint32_t dec_1;     // 1 자리
-} DecimalDigits;
+	uint32_t dec_10M;// 10,000,000 자리
+	uint32_t dec_1M;// 1,000,000 자리
+	uint32_t dec_100K;// 100,000 자리
+	uint32_t dec_10K;// 10,000 자리
+	uint32_t dec_1K;// 1,000 자리
+	uint32_t dec_100;// 100 자리
+	uint32_t dec_10;// 10 자리
+	uint32_t dec_1;// 1 자리
+}DecimalDigits;
 extern DecimalDigits digits;
 
 /*
@@ -71,7 +70,9 @@ extern int16_t keyValue;
 /* Exported functions prototypes ---------------------------------------------*/
 /* USER CODE BEGIN EFP */
 extern void hex2dec(uint32_t hex);
+
 extern void User_Main_App(void);
+extern void User_System_Init(void);
 
 extern void Test_EEPROM_Read(void);
 extern void Test_Image_Print(void);

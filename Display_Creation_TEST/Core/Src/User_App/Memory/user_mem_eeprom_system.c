@@ -12,8 +12,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "fonts.h"
-#include "main_app.h"
+#include "user_main_app.h"
 #include "user_disp_lcd.h"
+#include "string.h"
 
 /* USER CODE END Includes */
 

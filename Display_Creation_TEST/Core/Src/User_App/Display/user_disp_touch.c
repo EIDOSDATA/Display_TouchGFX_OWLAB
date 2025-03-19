@@ -11,6 +11,7 @@
 #include "user_disp_touch.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "user_disp_lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,11 +32,9 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 TS_StateTypeDef Touch_State;
-uint16_t CurrBtnMax;
-extern I2C_HandleTypeDef hi2c1;
+_BTN_LCD_PRINT_t Lcds;
 
-//_BTN_t;
-_LCD_t Lcds;
+extern I2C_HandleTypeDef hi2c1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -129,17 +128,35 @@ uint8_t User_TS_GetState(TS_StateTypeDef *TS_State)
 	{
 		tmp_buffer[0] = 0;
 		HAL_I2C_Master_Transmit(&hi2c1, 0x70, tmp_buffer, 1, 1000);
+
 		memset(a_buffer, 0, sizeof(a_buffer));
-		HAL_I2C_Master_Receive(&hi2c1, 0x71, a_buffer, 8, 1000);
+		HAL_I2C_Master_Receive(&hi2c1, 0x71, a_buffer, sizeof(a_buffer), 1000);
 
-		/* Calculate positions */
-		TS_State->x_pos = ((((a_buffer[3] & 0xF) << 8) | a_buffer[4]) % 1024); // / 1024;
-		TS_State->y_pos = ((((a_buffer[5] & 0xF) << 8) | a_buffer[6]) % 600);  // / 600;
+		/* Calculate positions (handling reversed LCD logic) */
+		uint16_t x_raw = ((a_buffer[3] & 0xF) << 8) | a_buffer[4];
+		uint16_t y_raw = ((a_buffer[5] & 0xF) << 8) | a_buffer[6];
 
+		if (LCD_POSITION_REVERSED)
+		{
+			/* The LCD position has been inverted. */
+			TS_State->x_pos = LCD_MAXIMUM_X_SIZE - (x_raw % LCD_MAXIMUM_X_SIZE);
+			TS_State->y_pos = LCD_MAXIMUM_Y_SIZE - (y_raw % LCD_MAXIMUM_Y_SIZE);
+		}
+		else
+		{
+			/* LCD position is not inverted. */
+			TS_State->x_pos = x_raw % LCD_MAXIMUM_X_SIZE;
+			TS_State->y_pos = y_raw % LCD_MAXIMUM_Y_SIZE;
+		}
+
+		/* Set touch detected */
+		TS_State->TouchDetected = 1;
 		return 1;
 	}
 	else
 	{
+		/* No touch detected */
+		TS_State->TouchDetected = 0;
 		return 0;
 	}
 }

@@ -9,7 +9,8 @@
 #define INC_USER_APP_GENERAL_USER_STM32_TIM_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -37,13 +38,11 @@ extern "C" {
 /* USER CODE BEGIN EFP */
 extern void TIM_Init(TIM_HandleTypeDef *htim);
 
-/* TIM 13 LCD BackLight */
-extern void TIM13_LCD_Backlight_Bright_Control(uint8_t bright);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-#define TFTLCD_BACKLIGHT_DUTY(duty) __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, duty)
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

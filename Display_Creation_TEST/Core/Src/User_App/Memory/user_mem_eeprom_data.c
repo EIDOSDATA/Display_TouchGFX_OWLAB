@@ -11,7 +11,8 @@
 #include "user_mem_eeprom_data.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "user_stm32_tim.h"
+#include "user_disp_lcd.h"
+
 #include "user_buzzer.h"
 #include "stm32h743i_eval_lcd.h"
 #include "stm32h743i_eval_eeprom.h"
@@ -69,12 +70,12 @@ void EEPROM_DataInit(void)
 	{ 0, };
 	uint32_t size;
 
-	// Parameter영역 체크.
+	/* Parameter Memory Area Check */
 	size = sizeof(_EERPOM_t);
 	if (size >= 4000)
 	{
-		/// 백나이트 켜기
-		TIM13_LCD_Backlight_Bright_Control(EepData.BacklightBright);
+		/* LCD ON */
+		User_LCD_BackLight_On();
 		BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "EEPROM Size Over", CENTER_MODE);
 		while (1)
 		{

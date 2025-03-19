@@ -42,7 +42,6 @@ RM := rm -rf
 -include TouchGFX/App/subdir.mk
 -include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
--include Core/Src/driver/subdir.mk
 -include Core/Src/User_App/Memory/subdir.mk
 -include Core/Src/User_App/General/subdir.mk
 -include Core/Src/User_App/Display/subdir.mk

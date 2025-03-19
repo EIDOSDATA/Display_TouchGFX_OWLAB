@@ -24,14 +24,14 @@
 /* USER CODE BEGIN Includes */
 
 /* Display Folder Header ------------------------------*/
+#include "user_main_app.h"
+
 /* Display :: User Interface */
 #include "user_disp_touch.h"
 #include "user_disp_lcd.h"
-#include "main_app.h"
 
-/* General :: System Base */
-#include "user_sys_init.h"
-#include "user_buzzer.h"
+#include "user_sys_init.h" /* Unused In this file */
+#include "user_buzzer.h" /* Unused In this file */
 #include "user_gpio_ctrl.h" /* Unused In this file */
 
 /* General :: System Control */
@@ -42,7 +42,6 @@
 #include "fatfs_storage.h"  /* Unused In this file */
 #include "n25q512a.h"  /* Unused In this file */
 #include "user_mem_eeprom_data.h"
-
 #include "user_mem_sdram.h"
 /* USER CODE END Includes */
 
@@ -137,15 +136,21 @@ int main(void)
 	MX_TIM13_Init();
 	MX_TouchGFX_Init();
 	/* USER CODE BEGIN 2 */
+
+	/* LCD Initialization Sequence */
+	/*
+	 * NOTE :
+	 * 	1. SDRAM Initialization
+	 * 	2. LCD INIT (SPI) / LTDC -> CHECK PLZ
+	 * 	3. Touch INIT
+	 * 	4. LCD Back Light ON
+	 * */
 	User_SDRAM_Initialization_Sequence(&hsdram1, &command);
 #if 0
-	User_TFTLCD_Init();
-	BSP_LCD_Clear(LCD_COLOR_WHITE);
+	User_LCD_Init();
 #endif
 	User_Touch_Init();
-
-	HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
-	TIM13->CCR1 = 99;
+	User_LCD_BackLight_On();
 
 	/* USER CODE END 2 */
 

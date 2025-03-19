@@ -43,7 +43,6 @@ Core/Src/BSP/STM32H7_BSP \
 Core/Src/User_App/Display \
 Core/Src/User_App/General \
 Core/Src/User_App/Memory \
-Core/Src/driver \
 Core/Src \
 Core/Startup \
 Drivers/STM32H7xx_HAL_Driver/Src \

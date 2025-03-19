@@ -45,20 +45,20 @@ typedef struct
 } _BTN_POS_t;
 
 /*
- * LCD Parameter
+ * Button LCD Parameter
  * */
 #define BTN_MAX 30
 typedef struct
 {
-	uint8_t Status;					// LCD 상태
+	uint8_t Status;					// LCD Status
 #if 0
 	uint16_t TouchX;		/* 터치 X좌표 */
 	uint16_t TouchY;		/* 터치 Y좌표 */
 #endif
-	uint8_t TouchBtn;				// 터치 버튼
-	_BTN_POS_t Btn_Pos[BTN_MAX];	// 버튼 좌표
-	uint16_t BtnNum;				// 버튼 갯수
-} _LCD_t;
+	uint8_t TouchBtn;				// Touch Button
+	_BTN_POS_t Btn_Pos[BTN_MAX];	// Touch Button Position
+	uint16_t BtnNum;				// Number of Button
+} _BTN_LCD_PRINT_t;
 
 extern TS_StateTypeDef Touch_State;
 

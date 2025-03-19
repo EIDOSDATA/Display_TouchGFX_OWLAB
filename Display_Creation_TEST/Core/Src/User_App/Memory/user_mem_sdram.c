@@ -56,7 +56,6 @@ void User_SDRAM_MspDeInit(SDRAM_HandleTypeDef *hsdram, void *Params);
 /* USER CODE BEGIN 0 */
 void User_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command)
 {
-	__IO uint32_t tmpmrd = 0;
 	/* Step 1:  Configure a clock configuration enable command */
 	Command->CommandMode = FMC_SDRAM_CMD_CLK_ENABLE;
 	Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
@@ -96,6 +95,7 @@ void User_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_C
 	Command->AutoRefreshNumber = 1;
 
 #if 0
+	__IO uint32_t tmpmrd = 0;
 	tmpmrd = (uint32_t) SDRAM_MODEREG_BURST_LENGTH_1 |
 	SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL |
 	SDRAM_MODEREG_CAS_LATENCY_3 |

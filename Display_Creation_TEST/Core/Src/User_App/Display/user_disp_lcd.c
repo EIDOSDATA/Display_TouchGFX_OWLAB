@@ -31,18 +31,20 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern TIM_HandleTypeDef htim13;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-void User_TFTLCD_Init(void);
+void User_LCD_Init(void);
+void User_LCD_BackLight_On(void);
+void User_LCD_BackLight_Off(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void User_TFTLCD_Init(void)
+void User_LCD_Init(void)
 {
 	/* Background Layer Initialization */
 	BSP_LCD_LayerDefaultInit(0, LCD_FRAME_BUFFER_LAYER0);
@@ -62,6 +64,18 @@ void User_TFTLCD_Init(void)
 	BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	BSP_LCD_SetFont(&Font24);
+}
+
+void User_LCD_BackLight_On(void)
+{
+	HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
+	TIM13->CCR1 = 99;
+}
+
+void User_LCD_BackLight_Off(void)
+{
+	HAL_TIM_PWM_Stop(&htim13, TIM_CHANNEL_1);
+	TIM13->CCR1 = 0;
 }
 
 /* USER CODE END 0 */

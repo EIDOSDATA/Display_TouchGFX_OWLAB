@@ -79,13 +79,13 @@ typedef struct
 	uint32_t TextColor;
 	uint32_t BackColor;
 	sFONT *pFont;
-} LCD_DrawPropTypeDef;
+}LCD_DrawPropTypeDef;
 
 typedef struct
 {
 	int16_t X;
 	int16_t Y;
-} Point, *pPoint;
+}Point, *pPoint;
 
 /**
  * @brief  Line mode structures definition
@@ -95,7 +95,7 @@ typedef enum
 	CENTER_MODE = 0x01, /* Center mode */
 	RIGHT_MODE = 0x02, /* Right mode  */
 	LEFT_MODE = 0x03 /* Left mode   */
-} Text_AlignModeTypdef;
+}Text_AlignModeTypdef;
 
 typedef struct
 {
@@ -105,7 +105,7 @@ typedef struct
 	uint16_t SizeY;
 	uint16_t TargetX;
 	uint16_t TargetY;
-} _LCD_CUT_t;
+}_LCD_CUT_t;
 
 /**
  * @}

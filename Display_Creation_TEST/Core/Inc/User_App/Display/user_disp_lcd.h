@@ -36,36 +36,23 @@ extern "C"
 
 /* Exported functions prototypes ---------------------------------------------*/
 /* USER CODE BEGIN EFP */
-extern void User_TFTLCD_Init(void);
-
-/* Radial Display Function --------------------*/
-/* Radial */
-extern void radial_key_display(void);
-extern void radial_sensor_key_display(void);
-extern void radial_image_delete(void);
-extern void radial_select_draw(uint8_t no, uint32_t color);
-
-/* Focus Display Function --------------------*/
-/* Focus */
-extern void focus_key_display(void);
-extern void focus_image_delete(void);
-extern void focus_select_draw(uint8_t no, uint32_t color);
-extern void focus_seting_display(void);
-extern void focus_seting_single_display(void);
-
+extern void User_LCD_Init(void);
+extern void User_LCD_BackLight_On(void);
+extern void User_LCD_BackLight_Off(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-#define LCD_FRAME_BUFFER         0xD0000000
-#define JPEG_OUTPUT_DATA_BUFFER  0xD0500000
+#define LCD_POSITION_REVERSED		true
+#define LCD_MAXIMUM_X_SIZE			1024
+#define LCD_MAXIMUM_Y_SIZE			600
 
-//#define LCD_FRAME_BUFFER_LAYER0                  0xD0130000 //640x480x4
-#define LCD_FRAME_BUFFER_LAYER0                  (LCD_FRAME_BUFFER + 0x200000)
-#define LCD_FRAME_BUFFER_LAYER1                  (LCD_FRAME_BUFFER)
+#define LCD_FRAME_BUFFER			0xD0000000
+#define JPEG_OUTPUT_DATA_BUFFER		0xD0500000
 
-#define LCD_ON() HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1); /* Display ON */
-#define LCD_OFF() HAL_TIM_PWM_Stop(&htim13, TIM_CHANNEL_1); /* Display OFF */
+//#define LCD_FRAME_BUFFER_LAYER0					0xD0258000 // LCD_MAXIMUM_X_SIZE * LCD_MAXIMUM_Y_SIZE * 2
+#define LCD_FRAME_BUFFER_LAYER0					(LCD_FRAME_BUFFER + 0x200000)
+#define LCD_FRAME_BUFFER_LAYER1					(LCD_FRAME_BUFFER)
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

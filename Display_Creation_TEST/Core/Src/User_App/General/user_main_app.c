@@ -8,18 +8,11 @@
 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <user_main_app.h>
+#include <user_main_app.h>
 #include "main.h"
-#include "main_app.h"
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
-/* Display Folder Header ------------------------------*/
-/* Display :: User Interface */
 #include "user_disp_touch.h"
 #include "user_disp_lcd.h"
-#include "main_app.h"
-
-/* General :: System Base */
 #include "user_sys_init.h"
 #include "user_buzzer.h"
 #include "user_gpio_ctrl.h" /* Unused In this file */
@@ -111,9 +104,6 @@ uint8_t test_start_toggle_f = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN PFP */
-void User_Main_App(void);
-
 /* UTILITY FUNCTION */
 void hex2dec(uint32_t hex);
 void User_Display_Loading_Sequence(void);
@@ -124,6 +114,10 @@ void Test_Image_Print(void);
 void TEST_Encoder_State(void);
 void TEST_Encoder_Parameter_Read(void);
 void TEST_Encoder_Parameter_Display(void);
+
+/* USER CODE BEGIN PFP */
+void User_System_Init(void);
+void User_Main_App(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -159,7 +153,6 @@ void User_Display_Loading_Sequence(void)
 }
 
 /* TEST FUNCTION --------------------*/
-
 #if 0
 /* EEPROM READ TEST */
 void Test_EEPROM_Read(void)
@@ -324,6 +317,52 @@ void TEST_Encoder_Parameter_Display(void)
 }
 #endif
 
+void User_System_Init(void)
+{
+#if 0
+	/* FUCK U BSP */
+	/* SDRAM Initialization */
+	User_SDRAM_Initialization_Sequence(&hsdram1, &command);
+
+	User_TFTLCD_Init();
+	BUZZER_Init();
+
+	MX_SDMMC1_SD_Init();
+	MX_FATFS_Init();
+
+	User_Touch_Init();
+
+	/* I2C2 EEPROM Initialization */
+	BSP_EEPROM_Init(); /* I2C2 */
+	EEPROM_DataInit();
+
+	/*
+	 * QSPI Initialization
+	 * */
+	User_QSPI_SaveData_To_FlashMemory();
+	MX_QUADSPI_Init();
+	BSP_QSPI_Init();
+	BSP_QSPI_EnableMemoryMappedMode();
+
+
+	/*
+	 * IWDG TEST
+	 * Determines if it is a Reset by the system Watchdog.
+	 * If it's Reset by the Watchdog, Rrun it.
+	 * */
+	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDG1RST) != RESET)
+	{
+		/* LCD Backlight On */
+		TIM13_LCD_Backlight_Bright_Control(EepData.BacklightBright);
+		BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "IWDG reset", CENTER_MODE);
+		HAL_Delay(2000);
+	}
+	/* Clear reset flags anyway */
+	__HAL_RCC_CLEAR_RESET_FLAGS();
+	MX_IWDG1_Init();
+#endif
+}
+
 /**
  * @brief  The application entry point.
  * @retval N/A
@@ -347,15 +386,17 @@ void User_Main_App(void)
 	BSP_LCD_DrawBitmap(0, 0, (uint8_t*) pQSPI->LCD_IMAGE_BUFFER[2]);
 #endif
 
+#if 0
 	/* PWN Start */
-	//HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-	//HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
 	/* Encoder Start */
-	//HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
-	//HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
+	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
+	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
 	encoder_cnt1 = TIM4->CNT;
 	prev_motor_dir = SYS_STATE_INIT;
 	cur_motor_dir = SYS_STATE_INIT;
+#endif
 
 #if UNUSED
 	while (1)

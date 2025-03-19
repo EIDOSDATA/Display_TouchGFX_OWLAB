@@ -38,17 +38,7 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-extern CRC_HandleTypeDef hcrc;
 
-extern DMA2D_HandleTypeDef hdma2d;
-
-extern I2C_HandleTypeDef hi2c1;
-
-extern LTDC_HandleTypeDef hltdc;
-
-extern TIM_HandleTypeDef htim13;
-
-extern SDRAM_HandleTypeDef hsdram1;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
