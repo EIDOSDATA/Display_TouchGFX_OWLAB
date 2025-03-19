@@ -9,8 +9,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32h7xx_hal.h"
-#include "stm32h7xx_hal_sdram.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "user_mem_sdram.h"

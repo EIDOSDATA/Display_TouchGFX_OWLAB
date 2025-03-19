@@ -14,6 +14,7 @@
 #include "fonts.h"
 #include "user_main_app.h"
 #include "user_disp_lcd.h"
+#include "user_buzzer.h"
 #include "string.h"
 
 /* USER CODE END Includes */
@@ -41,6 +42,7 @@
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
 
+uint8_t User_EEPROM_CountSave(uint8_t idx, uint32_t eep_data);
 /*
  * Read selected memory address group :: EEPROM
  * */
@@ -52,6 +54,73 @@ void User_Read_EEPROM_Settings(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+/*
+ * EEPROM Data Save :: Usage Counting Save
+ * */
+uint8_t User_EEPROM_CountSave(uint8_t idx, uint32_t eep_data)
+{
+	uint32_t eep_addr[2];
+	uint32_t *pRead_data[2];
+
+	switch (idx)
+	{
+	case 0:
+		eep_addr[0] = (uint32_t) &EepAddr->FocusTotalCnt[EepData.FocusCntIdx];
+		// eep_addr[1] = (u32)&EepAddr->FocusTotalCnt[1];
+		pRead_data[0] = &EepData.FocusTotalCnt[EepData.FocusCntIdx];
+		// pRead_data[1] = &EepData.FocusTotalCnt[1];
+		break;
+	case 1:
+		eep_addr[0] = (uint32_t) &EepAddr->FocusHandCnt[EepData.FocusCntIdx];
+		// eep_addr[1] = (u32)&EepAddr->FocusHandCnt[1];
+		pRead_data[0] = &EepData.FocusHandCnt[EepData.FocusCntIdx];
+		// pRead_data[1] = &EepData.FocusHandCnt[1];
+		break;
+	case 2:
+		eep_addr[0] = (uint32_t) &EepAddr->RadialTotalCnt[EepData.RadialCntIdx];
+		// eep_addr[1] = (u32)&EepAddr->RadialTotalCnt[1];
+		pRead_data[0] = &EepData.RadialTotalCnt[EepData.RadialCntIdx];
+		// pRead_data[1] = &EepData.RadialTotalCnt[1];
+		break;
+	case 3:
+		eep_addr[0] = (uint32_t) &EepAddr->RadialHandCnt[EepData.RadialCntIdx];
+		// eep_addr[1] = (u32)&EepAddr->RadialHandCnt[1];
+		pRead_data[0] = &EepData.RadialHandCnt[EepData.RadialCntIdx];
+		// pRead_data[1] = &EepData.RadialHandCnt[1];
+		break;
+	default:
+		return 0;
+	}
+
+	for (uint8_t err_cnt = 0; err_cnt < 10; err_cnt++)
+	{
+		BSP_EEPROM_WriteBuffer((uint8_t*) &eep_data, eep_addr[0], 4);
+		BSP_EEPROM_ReadBuffer((uint8_t*) pRead_data[0], eep_addr[0], 4);
+		if (eep_data == *pRead_data[0])
+		{
+			break;
+		}
+		else
+		{
+			User_EEPROM_Error();
+			HAL_Delay(10);
+		}
+
+		if (err_cnt == 10)
+		{
+			BUZZER_ON();
+			HAL_Delay(1000);
+			BUZZER_OFF();
+
+			HAL_NVIC_SystemReset();
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
 /*
  * Read selected memory address group :: EEPROM
  * */

@@ -16,6 +16,7 @@ extern "C"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stm32h743i_eval_lcd.h"
 #include "stm32h743i_eval_eeprom.h"
 /* USER CODE END Includes */
 
@@ -24,8 +25,8 @@ extern "C"
 typedef struct
 {
 	uint8_t RadialKeyMode; // 라디알 키 모드 선택 : 0 = 3초 눌려야 연속 동작 , 1 = 짧게 눌러도 연속 동작.
-	uint8_t Flag[5]; //"FACT"  //
-} _EEPROM_FACTORY_t;
+	uint8_t Flag[5];//"FACT"  //
+}_EEPROM_FACTORY_t;
 
 typedef struct
 {
@@ -45,7 +46,7 @@ typedef struct
 
 	_EEPROM_FACTORY_t Factory;
 
-} _EERPOM_t;
+}_EERPOM_t;
 
 extern _EERPOM_t EepData;
 extern _EERPOM_t *EepAddr;
@@ -71,12 +72,14 @@ extern uint16_t focus_setting_16[]; /* Unused Value */
 
 /* Exported functions prototypes ---------------------------------------------*/
 /* USER CODE BEGIN EFP */
-extern void EEPROM_DataInit(void);
-extern uint8_t EEPROM_CountSave(uint8_t idx, uint32_t eep_data);
+extern void User_EEPROM_Init(void);
+extern void User_EEPROM_DataInit(void);
+extern void User_EEPROM_Error(void);
 
 /*
  * Read selected memory address group :: EEPROM
  * */
+extern uint8_t User_EEPROM_CountSave(uint8_t idx, uint32_t eep_data);
 extern void User_Main_Read_Settings_From_EEPROM(void);
 extern void User_Save_HandpieceUsageCountToEEPROM(void);
 extern void User_Read_EEPROM_Settings(void);

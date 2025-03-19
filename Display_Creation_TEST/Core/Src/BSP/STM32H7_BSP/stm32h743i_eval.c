@@ -801,8 +801,10 @@ static void I2Cx_MspInit(void)
 	RCC_PeriphClkInit.I2c123ClockSelection = RCC_I2C123CLKSOURCE_D2PCLK1;
 	HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphClkInit);
 
-//  /* set STOPWUCK in RCC_CFGR */
-//  __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
+#if 0
+	/* set STOPWUCK in RCC_CFGR */
+	__HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
+#endif
 
 	/*** Configure the GPIOs ***/
 	/* Enable GPIO clock */
