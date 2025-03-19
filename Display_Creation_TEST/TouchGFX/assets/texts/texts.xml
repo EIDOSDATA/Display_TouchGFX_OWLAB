@@ -6,23 +6,8 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_DS5X" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">PREV</Translation>
-      </Text>
-      <Text Id="__SingleUse_JGSO" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">HOME PAGE</Translation>
-      </Text>
-      <Text Id="__SingleUse_QU33" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">PREV</Translation>
-      </Text>
       <Text Id="__SingleUse_SJ7G" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">NEXT</Translation>
-      </Text>
-      <Text Id="__SingleUse_7HY4" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">LOADING PAGE...</Translation>
-      </Text>
-      <Text Id="__SingleUse_IN8E" Alignment="Center" TypographyId="Large">
-        <Translation Language="GB">OWLAB LOGO PAGE</Translation>
+        <Translation Language="GB">PREV</Translation>
       </Text>
       <Text Id="__SingleUse_MUAW" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">NEXT</Translation>

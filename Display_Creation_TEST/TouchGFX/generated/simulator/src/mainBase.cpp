@@ -4,13 +4,13 @@
 #include <simulator/mainBase.hpp>
 #include <platform/hal/simulator/sdl2/HALSDL2.hpp>
 #include <common/TouchGFXInit.hpp>
-#include <platform/driver/lcd/LCD32bpp.hpp>
+#include <platform/driver/lcd/LCD16bpp.hpp>
 #include <string.h>
 
 #ifdef __GNUC__
 #define fopen_s(pFile, filename, mode) (((*(pFile)) = fopen((filename), (mode))) == NULL)
 #endif
-touchgfx::LCD32bpp lcd;
+touchgfx::LCD16bpp lcd;
 
 void setupSimulator(int argc, char** argv, touchgfx::HAL& hal)
 {

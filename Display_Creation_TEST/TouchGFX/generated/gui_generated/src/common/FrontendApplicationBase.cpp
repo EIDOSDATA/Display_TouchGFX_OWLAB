@@ -8,13 +8,11 @@
 #include <texts/TextKeysAndLanguages.hpp>
 #include <touchgfx/Texts.hpp>
 #include <touchgfx/hal/HAL.hpp>
-#include <platform/driver/lcd/LCD32bpp.hpp>
+#include <platform/driver/lcd/LCD16bpp.hpp>
 #include <gui/page_00_logo_screen/Page_00_LogoView.hpp>
 #include <gui/page_00_logo_screen/Page_00_LogoPresenter.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingView.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp>
-#include <gui/page_02_home_screen/Page_02_HomeView.hpp>
-#include <gui/page_02_home_screen/Page_02_HomePresenter.hpp>
 
 using namespace touchgfx;
 
@@ -26,9 +24,9 @@ FrontendApplicationBase::FrontendApplicationBase(Model& m, FrontendHeap& heap)
 {
     touchgfx::HAL::getInstance()->setDisplayOrientation(touchgfx::ORIENTATION_LANDSCAPE);
     touchgfx::Texts::setLanguage(GB);
-    reinterpret_cast<touchgfx::LCD32bpp&>(touchgfx::HAL::lcd()).enableTextureMapperAll();
-    reinterpret_cast<touchgfx::LCD32bpp&>(touchgfx::HAL::lcd()).enableDecompressorL8_All();
-    reinterpret_cast<touchgfx::LCD32bpp&>(touchgfx::HAL::lcd()).enableDecompressorRGB();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperAll();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableDecompressorL8_All();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableDecompressorRGB();
 }
 
 /*
@@ -70,28 +68,4 @@ void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionEast()
 void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionEastImpl()
 {
     touchgfx::makeTransition<Page_01_LoadingView, Page_01_LoadingPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionWest()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionWestImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionWestImpl()
-{
-    touchgfx::makeTransition<Page_01_LoadingView, Page_01_LoadingPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-// Page_02_Home
-
-void FrontendApplicationBase::gotoPage_02_HomeScreenSlideTransitionEast()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoPage_02_HomeScreenSlideTransitionEastImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoPage_02_HomeScreenSlideTransitionEastImpl()
-{
-    touchgfx::makeTransition<Page_02_HomeView, Page_02_HomePresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

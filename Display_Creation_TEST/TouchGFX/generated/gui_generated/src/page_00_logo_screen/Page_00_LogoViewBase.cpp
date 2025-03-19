@@ -3,8 +3,8 @@
 /*********************************************************************************/
 #include <gui_generated/page_00_logo_screen/Page_00_LogoViewBase.hpp>
 #include <touchgfx/Color.hpp>
-#include <texts/TextKeysAndLanguages.hpp>
 #include <images/BitmapDatabase.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
 Page_00_LogoViewBase::Page_00_LogoViewBase() :
     buttonCallback(this, &Page_00_LogoViewBase::buttonCallbackHandler)
@@ -17,13 +17,7 @@ Page_00_LogoViewBase::Page_00_LogoViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(237, 92, 92));
     add(box1);
 
-    textArea1.setXY(171, 265);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IN8E));
-    add(textArea1);
-
-    NEXT_BTN_LOGO.setXY(750, 520);
+    NEXT_BTN_LOGO.setXY(392, 275);
     NEXT_BTN_LOGO.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     NEXT_BTN_LOGO.setLabelText(touchgfx::TypedText(T___SINGLEUSE_MUAW));
     NEXT_BTN_LOGO.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));

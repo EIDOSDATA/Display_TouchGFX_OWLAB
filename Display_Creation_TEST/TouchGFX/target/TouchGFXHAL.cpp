@@ -34,8 +34,15 @@ void TouchGFXHAL::initialize()
 	// and implement the needed functionality here.
 	// Please note, HAL::initialize() must be called to initialize the framework.
 
+#define LCD_RGB555_BYTE 2 /* RGB555 : 16bit */
+#define LCD_RGB888_BYTE 3 /* RGB888 : 24bit */
+#define LCD_ARGB8888_BYTE 4 /* RGB888 : 32bit */
+
+#define LCD_ANIMATION_BUFFER 2 /* RGB888 : 32bit */
+
 	TouchGFXGeneratedHAL::initialize();
-	TouchGFXGeneratedHAL::setAnimationStorage((void*) (0xD0000000 + 1024 * 600 * 2 * 2));
+	TouchGFXGeneratedHAL::setAnimationStorage((void*) (0xD0000000 + 0x400000));
+	//TouchGFXGeneratedHAL::setAnimationStorage((void*) (0xD0000000 + (1024 * 600 * LCD_RGB555_BYTE * LCD_ANIMATION_BUFFER)));
 }
 
 /**

@@ -184,23 +184,11 @@
     <Filter Include="Source Files\gui\page_00_logo_screen">
       <UniqueIdentifier>39FA5F48-6A79-4452-70DC-72DC246BA4C4</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\page_02_home_screen">
-      <UniqueIdentifier>0C244C0F-1C81-9B09-4655-AFC30A687E41</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\page_02_home_screen">
-      <UniqueIdentifier>895CE562-7665-0776-D216-2830701DDD71</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\page_02_home_screen">
-      <UniqueIdentifier>7658AF34-224E-F6E0-3465-7047DB7BD255</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\generated\gui_generated\page_01_loading_screen">
       <UniqueIdentifier>420C59C0-B89B-D963-1A02-1FF762EB36E7</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\generated\gui_generated\page_01_loading_screen">
       <UniqueIdentifier>1CEAE13B-81E6-6D7F-1821-27621217155D</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\page_02_home_screen">
-      <UniqueIdentifier>99A73844-7521-EF02-9D23-F55DA1AEBBFE</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\gui_generated\page_00_logo_screen">
       <UniqueIdentifier>DC97B591-CF05-4586-D831-6AE0291DC8EF</UniqueIdentifier>
@@ -257,15 +245,6 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\page_01_loading_screen\Page_01_LoadingViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\page_01_loading_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\page_02_home_screen\Page_02_HomePresenter.cpp">
-      <Filter>Source Files\gui\page_02_home_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\page_02_home_screen\Page_02_HomeView.cpp">
-      <Filter>Source Files\gui\page_02_home_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\page_02_home_screen\Page_02_HomeViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\page_02_home_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -726,15 +705,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\page_01_loading_screen\Page_01_LoadingViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\page_01_loading_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\page_02_home_screen\Page_02_HomePresenter.hpp">
-      <Filter>Header Files\gui\page_02_home_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\page_02_home_screen\Page_02_HomeView.hpp">
-      <Filter>Header Files\gui\page_02_home_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\page_02_home_screen\Page_02_HomeViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\page_02_home_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

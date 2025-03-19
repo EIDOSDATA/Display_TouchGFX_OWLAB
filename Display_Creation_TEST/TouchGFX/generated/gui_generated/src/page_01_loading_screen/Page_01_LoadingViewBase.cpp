@@ -17,33 +17,9 @@ Page_01_LoadingViewBase::Page_01_LoadingViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(75, 209, 95));
     add(box1);
 
-    imageProgress1.setXY(312, 538);
-    imageProgress1.setProgressIndicatorPosition(0, 0, 400, 10);
-    imageProgress1.setRange(0, 100);
-    imageProgress1.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    imageProgress1.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_IMAGEPROGRESS_PLAIN_NORMAL_LARGE_ID));
-    imageProgress1.setBitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_IMAGEPROGRESS_PLAIN_NORMAL_LARGE_ACTIVE_ID);
-    imageProgress1.setValue(60);
-    imageProgress1.setAnchorAtZero(true);
-    add(imageProgress1);
-
-    textArea1.setXY(222, 265);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_7HY4));
-    add(textArea1);
-
-    NEXT_BTN_LOADING.setXY(750, 520);
-    NEXT_BTN_LOADING.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
-    NEXT_BTN_LOADING.setLabelText(touchgfx::TypedText(T___SINGLEUSE_SJ7G));
-    NEXT_BTN_LOADING.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    NEXT_BTN_LOADING.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    NEXT_BTN_LOADING.setAction(buttonCallback);
-    add(NEXT_BTN_LOADING);
-
-    PREV_BTN_LOADING.setXY(40, 520);
+    PREV_BTN_LOADING.setXY(392, 275);
     PREV_BTN_LOADING.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
-    PREV_BTN_LOADING.setLabelText(touchgfx::TypedText(T___SINGLEUSE_QU33));
+    PREV_BTN_LOADING.setLabelText(touchgfx::TypedText(T___SINGLEUSE_SJ7G));
     PREV_BTN_LOADING.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     PREV_BTN_LOADING.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     PREV_BTN_LOADING.setAction(buttonCallback);
@@ -62,13 +38,6 @@ void Page_01_LoadingViewBase::setupScreen()
 
 void Page_01_LoadingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &NEXT_BTN_LOADING)
-    {
-        //NEXT_BTN_Interaction
-        //When NEXT_BTN_LOADING clicked change screen to Page_02_Home
-        //Go to Page_02_Home with screen transition towards East
-        application().gotoPage_02_HomeScreenSlideTransitionEast();
-    }
     if (&src == &PREV_BTN_LOADING)
     {
         //PREV_BTN_Interaction

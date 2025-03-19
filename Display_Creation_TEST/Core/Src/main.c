@@ -83,7 +83,6 @@ SDRAM_HandleTypeDef hsdram1;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MPU_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_CRC_Init(void);
 static void MX_DMA2D_Init(void);
@@ -110,9 +109,6 @@ int main(void)
 	/* USER CODE BEGIN 1 */
 
 	/* USER CODE END 1 */
-
-	/* MPU Configuration--------------------------------------------------------*/
-	MPU_Config();
 
 	/* MCU Configuration--------------------------------------------------------*/
 
@@ -164,7 +160,6 @@ int main(void)
 #if 0
 		if (User_TS_GetState(&Touch_State) == 1)
 		{
-			BSP_LCD_Clear(LCD_COLOR_ORANGE);
 		}
 #endif
 	}
@@ -279,10 +274,10 @@ static void MX_DMA2D_Init(void)
 	/* USER CODE END DMA2D_Init 1 */
 	hdma2d.Instance = DMA2D;
 	hdma2d.Init.Mode = DMA2D_M2M;
-	hdma2d.Init.ColorMode = DMA2D_OUTPUT_ARGB8888;
+	hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB565;
 	hdma2d.Init.OutputOffset = 0;
 	hdma2d.LayerCfg[1].InputOffset = 0;
-	hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+	hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
 	hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
 	hdma2d.LayerCfg[1].InputAlpha = 0;
 	hdma2d.LayerCfg[1].AlphaInverted = DMA2D_REGULAR_ALPHA;
@@ -418,7 +413,7 @@ static void MX_LTDC_Init(void)
 	pLayerCfg.WindowX1 = 1024;
 	pLayerCfg.WindowY0 = 0;
 	pLayerCfg.WindowY1 = 600;
-	pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
+	pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
 	pLayerCfg.Alpha = 255;
 	pLayerCfg.Alpha0 = 0;
 	pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
@@ -600,36 +595,6 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
-
-/* MPU Configuration */
-
-void MPU_Config(void)
-{
-	MPU_Region_InitTypeDef MPU_InitStruct =
-	{ 0 };
-
-	/* Disables the MPU */
-	HAL_MPU_Disable();
-
-	/** Initializes and configures the Region and the memory to be protected
-	 */
-	MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-	MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-	MPU_InitStruct.BaseAddress = 0x0;
-	MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-	MPU_InitStruct.SubRegionDisable = 0x87;
-	MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-	MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
-	MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
-	MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
-	MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
-	MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
-
-	HAL_MPU_ConfigRegion(&MPU_InitStruct);
-	/* Enables the MPU */
-	HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
-
-}
 
 /**
  * @brief  This function is executed in case of error occurrence.

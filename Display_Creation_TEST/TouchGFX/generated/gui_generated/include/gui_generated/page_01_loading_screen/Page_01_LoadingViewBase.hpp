@@ -8,8 +8,6 @@
 #include <mvp/View.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class Page_01_LoadingViewBase : public touchgfx::View<Page_01_LoadingPresenter>
@@ -29,9 +27,6 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::ImageProgress imageProgress1;
-    touchgfx::TextArea textArea1;
-    touchgfx::ButtonWithLabel NEXT_BTN_LOADING;
     touchgfx::ButtonWithLabel PREV_BTN_LOADING;
 
 private:

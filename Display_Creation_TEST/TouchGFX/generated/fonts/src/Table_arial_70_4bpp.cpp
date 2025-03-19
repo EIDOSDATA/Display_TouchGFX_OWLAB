@@ -4,22 +4,7 @@
 
 FONT_TABLE_LOCATION_FLASH_PRAGMA
 KEEP extern const touchgfx::GlyphNode glyphs_arial_70_4bpp[] FONT_TABLE_LOCATION_FLASH_ATTRIBUTE = {
-    {     0, 0x0020,   0,   0,   0,   0,  19,   0,   3, 0x00 },
-    {     0, 0x002E,   8,   7,   7,   6,  19,   3,   2, 0x00 },
-    {    28, 0x003F,  33,  51,  51,   3,  39,   0,   0, 0x00 },
-    {   895, 0x0041,  47,  50,  50,   0,  47,   5,   3, 0x00 },
-    {  2095, 0x0042,  38,  50,  50,   5,  47,   0,   0, 0x00 },
-    {  3045, 0x0044,  42,  50,  50,   5,  51,   0,   0, 0x00 },
-    {  4095, 0x0045,  38,  50,  50,   5,  47,   0,   0, 0x00 },
-    {  5045, 0x0047,  48,  52,  51,   3,  54,   0,   0, 0x00 },
-    {  6293, 0x0048,  40,  50,  50,   5,  51,   0,   0, 0x00 },
-    {  7293, 0x0049,   8,  50,  50,   6,  19,   0,   0, 0x00 },
-    {  7493, 0x004C,  32,  50,  50,   5,  39,   0,   0, 0x00 },
-    {  8293, 0x004D,  48,  50,  50,   5,  58,   0,   0, 0x00 },
-    {  9493, 0x004E,  40,  50,  50,   5,  51,   0,   0, 0x00 },
-    { 10493, 0x004F,  49,  52,  51,   3,  54,   0,   0, 0x00 },
-    { 11793, 0x0050,  39,  51,  50,   5,  47,   0,   0, 0x00 },
-    { 12813, 0x0057,  66,  50,  50,   0,  66,   8,   2, 0x00 }
+    {     0, 0x003F,  33,  51,  51,   3,  39,   0,   0, 0x00 }
 };
 
 // arial_70_4bpp
@@ -193,6 +178,6 @@ touchgfx::GeneratedFont& getFont_arial_70_4bpp();
 
 touchgfx::GeneratedFont& getFont_arial_70_4bpp()
 {
-    static touchgfx::GeneratedFont arial_70_4bpp(glyphs_arial_70_4bpp, 16, 71, 70, 0, 0, 4, 1, 0, 0, unicodes_arial_70_4bpp, kerning_arial_70_4bpp, 63, 0, 0, &arial_contextualFormsTable);
+    static touchgfx::GeneratedFont arial_70_4bpp(glyphs_arial_70_4bpp, 1, 70, 70, 0, 0, 4, 1, 0, 0, unicodes_arial_70_4bpp, kerning_arial_70_4bpp, 63, 0, 0, &arial_contextualFormsTable);
     return arial_70_4bpp;
 }

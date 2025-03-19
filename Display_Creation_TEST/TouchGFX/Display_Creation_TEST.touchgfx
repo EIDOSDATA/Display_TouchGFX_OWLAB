@@ -16,21 +16,10 @@
             }
           },
           {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 171,
-            "Y": 265,
-            "Width": 682,
-            "Height": 71,
-            "TextId": "__SingleUse_IN8E",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
             "Type": "ButtonWithLabel",
             "Name": "NEXT_BTN_LOGO",
-            "X": 750,
-            "Y": 520,
+            "X": 392,
+            "Y": 275,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
@@ -81,38 +70,10 @@
             }
           },
           {
-            "Type": "ImageProgress",
-            "Name": "imageProgress1",
-            "X": 312,
-            "Y": 538,
-            "Width": 400,
-            "Height": 10,
-            "FileNameProgress": "__generated\\alternate_theme_images_widgets_imageprogress_plain_normal_large_active.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "Preset": "alternate_theme\\presets\\imageprogress\\plain\\normal\\large_active.json",
-            "FileNameBackground": "__generated\\alternate_theme_images_widgets_imageprogress_plain_normal_large.png",
-            "IndicatorPositionWidth": 400,
-            "IndicatorPositionHeight": 10,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 60
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 222,
-            "Y": 265,
-            "Width": 581,
-            "Height": 71,
-            "TextId": "__SingleUse_7HY4",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
             "Type": "ButtonWithLabel",
-            "Name": "NEXT_BTN_LOADING",
-            "X": 750,
-            "Y": 520,
+            "Name": "PREV_BTN_LOADING",
+            "X": 392,
+            "Y": 275,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
@@ -130,45 +91,9 @@
             },
             "TextRotation": "0",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "PREV_BTN_LOADING",
-            "X": 40,
-            "Y": 520,
-            "Width": 240,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "TextId": "__SingleUse_QU33",
-            "ReleasedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
           }
         ],
         "Interactions": [
-          {
-            "InteractionName": "NEXT_BTN_Interaction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "NEXT_BTN_LOADING"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "Page_02_Home"
-            }
-          },
           {
             "InteractionName": "PREV_BTN_Interaction",
             "Trigger": {
@@ -183,71 +108,6 @@
             }
           }
         ]
-      },
-      {
-        "Name": "Page_02_Home",
-        "Components": [
-          {
-            "Type": "Box",
-            "Name": "box1",
-            "Width": 1024,
-            "Height": 600,
-            "Color": {
-              "Red": 89,
-              "Green": 89,
-              "Blue": 189
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 303,
-            "Y": 265,
-            "Width": 419,
-            "Height": 71,
-            "TextId": "__SingleUse_JGSO",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "PREV_BTN_HOME",
-            "X": 40,
-            "Y": 520,
-            "Width": 240,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "TextId": "__SingleUse_DS5X",
-            "ReleasedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "PREV_BTN_Interaction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "PREV_BTN_HOME"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "Page_01_Loading"
-            }
-          }
-        ]
       }
     ],
     "CustomContainerDefinitions": [],
@@ -256,13 +116,13 @@
       "Width": 1024,
       "Height": 600
     },
-    "SelectedColorDepth": 32,
+    "SelectedColorDepth": 16,
     "StartupScreenName": "Page_00_Logo",
     "SelectedStartupLanguage": "GB",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
     "AvailableColorDepths": [
-      32
+      16
     ],
     "AvailableLCDs": {
       "16": "LCD16bpp",
@@ -281,8 +141,8 @@
     ],
     "PhysicalButtons": [],
     "FrameworkFeatures": {
-      "LCD32bpp": {
-        "Id": "LCD32bpp",
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
         "IsEnabled": true
       }
     },

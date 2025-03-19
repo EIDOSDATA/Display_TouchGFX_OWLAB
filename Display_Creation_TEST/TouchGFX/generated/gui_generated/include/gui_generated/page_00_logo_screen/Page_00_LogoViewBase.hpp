@@ -8,7 +8,6 @@
 #include <mvp/View.hpp>
 #include <gui/page_00_logo_screen/Page_00_LogoPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class Page_00_LogoViewBase : public touchgfx::View<Page_00_LogoPresenter>
@@ -28,7 +27,6 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::TextArea textArea1;
     touchgfx::ButtonWithLabel NEXT_BTN_LOGO;
 
 private:

@@ -3,10 +3,10 @@
   "Application": {
     "Name": "Display_Creation_TEST",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
-    "AvailableColorDepths": [ 32 ],
+    "AvailableColorDepths": [ 16 ],
     "AvailableLCDs":
     {
-      "32": "LCD32bpp"
+      "16": "LCD16bpp"
     },
     "AvailableResolutions": [
       {

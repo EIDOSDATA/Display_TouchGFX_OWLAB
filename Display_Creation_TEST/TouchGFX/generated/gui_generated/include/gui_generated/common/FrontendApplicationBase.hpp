@@ -28,11 +28,6 @@ public:
     // Page_01_Loading
     void gotoPage_01_LoadingScreenSlideTransitionEast();
 
-    void gotoPage_01_LoadingScreenSlideTransitionWest();
-
-    // Page_02_Home
-    void gotoPage_02_HomeScreenSlideTransitionEast();
-
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -45,11 +40,6 @@ protected:
 
     // Page_01_Loading
     void gotoPage_01_LoadingScreenSlideTransitionEastImpl();
-
-    void gotoPage_01_LoadingScreenSlideTransitionWestImpl();
-
-    // Page_02_Home
-    void gotoPage_02_HomeScreenSlideTransitionEastImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

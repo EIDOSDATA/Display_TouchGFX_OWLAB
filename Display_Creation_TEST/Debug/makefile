@@ -12,7 +12,6 @@ RM := rm -rf
 -include Utilities/JPEG/subdir.mk
 -include TouchGFX/target/generated/subdir.mk
 -include TouchGFX/target/subdir.mk
--include TouchGFX/gui/src/page_02_home_screen/subdir.mk
 -include TouchGFX/gui/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/gui/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/gui/src/model/subdir.mk
@@ -20,7 +19,6 @@ RM := rm -rf
 -include TouchGFX/generated/texts/src/subdir.mk
 -include TouchGFX/generated/images/src/__generated/subdir.mk
 -include TouchGFX/generated/images/src/subdir.mk
--include TouchGFX/generated/gui_generated/src/page_02_home_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/common/subdir.mk
@@ -28,7 +26,6 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/hal/simulator/sdl2/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/driver/touch/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/simulator/subdir.mk
--include TouchGFX/build/MINGW32_NT-6.2/gui/src/page_02_home_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/model/subdir.mk
@@ -38,7 +35,6 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/generated/simulator/src/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/images/src/__generated/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/images/src/subdir.mk
--include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/page_02_home_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/common/subdir.mk
@@ -125,8 +121,8 @@ all: main-build
 main-build: Display_Creation_TEST.elf secondary-outputs
 
 # Tool invocations
-Display_Creation_TEST.elf Display_Creation_TEST.map: $(OBJS) $(USER_OBJS) C:\Users\user\GitHub\OW_DISPLAY_BOARD\Display_Creation_TEST\STM32H743BITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Display_Creation_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\user\GitHub\OW_DISPLAY_BOARD\Display_Creation_TEST\STM32H743BITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Display_Creation_TEST.map" -Wl,--gc-sections -static -L"C:\Users\user\GitHub\OW_DISPLAY_BOARD\Display_Creation_TEST\Middlewares\ST\touchgfx\lib\core\cortex_m7\gcc" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Display_Creation_TEST.elf Display_Creation_TEST.map: $(OBJS) $(USER_OBJS) C:\Users\user\GitHub\Display_TouchGFX_OWLAB\Display_Creation_TEST\STM32H743BITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "Display_Creation_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\user\GitHub\Display_TouchGFX_OWLAB\Display_Creation_TEST\STM32H743BITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Display_Creation_TEST.map" -Wl,--gc-sections -static -L"C:\Users\user\GitHub\Display_TouchGFX_OWLAB\Display_Creation_TEST\Middlewares\ST\touchgfx\lib\core\cortex_m7\gcc" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

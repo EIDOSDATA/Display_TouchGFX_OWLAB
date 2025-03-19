@@ -90,17 +90,33 @@ void User_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_C
 	HAL_SDRAM_SendCommand(hsdram, Command, SDRAM_TIMEOUT);
 
 	/* Step 5: Program the external memory mode register */
+
+	Command->CommandMode = FMC_SDRAM_CMD_LOAD_MODE;
+	Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+	Command->AutoRefreshNumber = 1;
+
+#if 0
 	tmpmrd = (uint32_t) SDRAM_MODEREG_BURST_LENGTH_1 |
 	SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL |
 	SDRAM_MODEREG_CAS_LATENCY_3 |
 	SDRAM_MODEREG_OPERATING_MODE_STANDARD |
 	SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;
-
-	Command->CommandMode = FMC_SDRAM_CMD_LOAD_MODE;
-	Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
-	Command->AutoRefreshNumber = 1;
 	Command->ModeRegisterDefinition = tmpmrd;
-
+#else
+	uint32_t mode_reg = 0;
+	mode_reg |= (0 << 0); // Burst Length = 1
+	mode_reg |= (0 << 3); // Burst Type
+						  //   0 : Sequential
+						  //   1 : Interleaved
+	mode_reg |= (2 << 4); // CAS Latency Mode
+						  //   2 :
+						  //   3 :
+	mode_reg |= (0 << 7); // Operation Mode
+	mode_reg |= (1 << 9); // Write Burst Mode
+						  //   0 : Programmed Burst Length
+						  //   1 : Single Location Access
+	Command->ModeRegisterDefinition = mode_reg;
+#endif
 	/* Send the command */
 	HAL_SDRAM_SendCommand(hsdram, Command, SDRAM_TIMEOUT);
 

@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\gui\src\page_01_loading_screen\Page_01_LoadingPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\page_01_loading_screen\Page_01_LoadingView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\page_01_loading_screen\Page_01_LoadingViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\page_02_home_screen\Page_02_HomePresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\page_02_home_screen\Page_02_HomeView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\page_02_home_screen\Page_02_HomeViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -186,9 +183,6 @@
     <ClInclude Include="..\..\gui\include\gui\page_01_loading_screen\Page_01_LoadingPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\page_01_loading_screen\Page_01_LoadingView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\page_01_loading_screen\Page_01_LoadingViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\page_02_home_screen\Page_02_HomePresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\page_02_home_screen\Page_02_HomeView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\page_02_home_screen\Page_02_HomeViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

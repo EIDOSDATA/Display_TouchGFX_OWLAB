@@ -79,21 +79,12 @@ build/MINGW32_NT-6.2/simulator/main.o: simulator/main.cpp \
  gui/include/gui/page_00_logo_screen/Page_00_LogoPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  gui/include/gui/page_01_loading_screen/Page_01_LoadingView.hpp \
  generated/gui_generated/include/gui_generated/page_01_loading_screen/Page_01_LoadingViewBase.hpp \
  gui/include/gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
- gui/include/gui/page_02_home_screen/Page_02_HomeView.hpp \
- generated/gui_generated/include/gui_generated/page_02_home_screen/Page_02_HomeViewBase.hpp \
- gui/include/gui/page_02_home_screen/Page_02_HomePresenter.hpp \
  generated/gui_generated/include/gui_generated/common/SimConstants.hpp \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/SDL2TouchController.hpp \
  generated/simulator/include/simulator/mainBase.hpp
@@ -258,8 +249,6 @@ gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
-
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
@@ -271,22 +260,6 @@ gui/include/gui/page_01_loading_screen/Page_01_LoadingView.hpp:
 generated/gui_generated/include/gui_generated/page_01_loading_screen/Page_01_LoadingViewBase.hpp:
 
 gui/include/gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:
-
-gui/include/gui/page_02_home_screen/Page_02_HomeView.hpp:
-
-generated/gui_generated/include/gui_generated/page_02_home_screen/Page_02_HomeViewBase.hpp:
-
-gui/include/gui/page_02_home_screen/Page_02_HomePresenter.hpp:
 
 generated/gui_generated/include/gui_generated/common/SimConstants.hpp:
 
