@@ -56,6 +56,7 @@
 
 /* External variables --------------------------------------------------------*/
 extern LTDC_HandleTypeDef hltdc;
+extern QSPI_HandleTypeDef hqspi;
 extern TIM_HandleTypeDef htim3;
 /* USER CODE BEGIN EV */
 
@@ -239,6 +240,20 @@ void LTDC_ER_IRQHandler(void)
   /* USER CODE BEGIN LTDC_ER_IRQn 1 */
 
   /* USER CODE END LTDC_ER_IRQn 1 */
+}
+
+/**
+  * @brief This function handles QUADSPI global interrupt.
+  */
+void QUADSPI_IRQHandler(void)
+{
+  /* USER CODE BEGIN QUADSPI_IRQn 0 */
+
+  /* USER CODE END QUADSPI_IRQn 0 */
+  HAL_QSPI_IRQHandler(&hqspi);
+  /* USER CODE BEGIN QUADSPI_IRQn 1 */
+
+  /* USER CODE END QUADSPI_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

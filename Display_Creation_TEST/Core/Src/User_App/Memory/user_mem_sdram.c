@@ -92,7 +92,7 @@ void User_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_C
 	Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
 	Command->AutoRefreshNumber = 1;
 
-#if 0
+#if (!TOUCHGFX_ENABLED_MODE)
 	__IO uint32_t tmpmrd = 0;
 	tmpmrd = (uint32_t) SDRAM_MODEREG_BURST_LENGTH_1 |
 	SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL |

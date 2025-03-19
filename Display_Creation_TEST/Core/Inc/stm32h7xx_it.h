@@ -58,6 +58,7 @@ void SysTick_Handler(void);
 void TIM3_IRQHandler(void);
 void LTDC_IRQHandler(void);
 void LTDC_ER_IRQHandler(void);
+void QUADSPI_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

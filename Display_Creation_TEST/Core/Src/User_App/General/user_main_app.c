@@ -8,8 +8,10 @@
 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include <user_main_app.h>
-#include <user_main_app.h>
+#include "user_main_app.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 #include "main.h"
 #include "user_disp_touch.h"
 #include "user_disp_lcd.h"
@@ -27,6 +29,7 @@
 #include "user_mem_eeprom_data.h"
 
 #include "user_mem_sdram.h"
+#include "user_mem_qspi.h"
 
 /* Stimulation Folder Header ------------------------------*/
 /* Stimulation */
@@ -377,7 +380,9 @@ void User_Main_App(void)
 	/* System Init */
 #if UNUSED
 	User_System_Init();
+#endif
 
+#if (!TOUCHGFX_ENABLED_MODE)
 	/* QSPI_NOR Memory -> Read -> LCD Image Print */
 	/* LCD Display - Initialization Page 01 */
 	BSP_LCD_DrawBitmap(0, 0, (uint8_t*) pQSPI->LCD_IMAGE_BUFFER[0]); // pQSPI->LCD_IMAGE_BUFFER[0] == 0x90000000

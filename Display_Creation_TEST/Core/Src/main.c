@@ -44,6 +44,7 @@
 #include "n25q512a.h"  /* Unused In this file */
 #include "user_mem_eeprom_data.h"
 #include "user_mem_sdram.h"
+#include "user_mem_qspi.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,9 +71,13 @@ DMA2D_HandleTypeDef hdma2d;
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
 
+IWDG_HandleTypeDef hiwdg1;
+
 JPEG_HandleTypeDef hjpeg;
 
 LTDC_HandleTypeDef hltdc;
+
+QSPI_HandleTypeDef hqspi;
 
 SD_HandleTypeDef hsd1;
 
@@ -104,6 +109,7 @@ static void MX_TIM4_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
+static void MX_QUADSPI_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -156,8 +162,13 @@ int main(void)
 	MX_FATFS_Init();
 	MX_I2C2_Init();
 	MX_USB_OTG_FS_PCD_Init();
-	MX_TouchGFX_Init();
+	MX_QUADSPI_Init();
 	/* USER CODE BEGIN 2 */
+#if (!TOUCHGFX_ENABLED_MODE)
+	//MX_IWDG1_Init();
+#else
+	MX_TouchGFX_Init();
+#endif
 
 	/* LCD Initialization Sequence */
 	/*
@@ -168,7 +179,7 @@ int main(void)
 	 * 	4. LCD Back Light ON
 	 * */
 	User_SDRAM_Initialization_Sequence(&hsdram1, &command);
-#if 0
+#if (!TOUCHGFX_ENABLED_MODE)
 	User_LCD_Init();
 #endif
 	User_Touch_Init();
@@ -176,6 +187,13 @@ int main(void)
 
 	/* EEPROM Initialization */
 	User_EEPROM_Init();
+
+	/*
+	 * QSPI Initialization
+	 * */
+#if (!TOUCHGFX_ENABLED_MODE)
+	User_QSPI_Init();
+#endif
 
 	User_Main_App();
 
@@ -185,19 +203,18 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		/* USER CODE END WHILE */
+#if TOUCHGFX_ENABLED_MODE
+    /* USER CODE END WHILE */
 
-		MX_TouchGFX_Process();
-		/* USER CODE BEGIN 3 */
-
+  MX_TouchGFX_Process();
+    /* USER CODE BEGIN 3 */
+#endif
 		/* State Machine */
 		TEST_Encoder_State();
-
 		/* Encoder Read */
 		TEST_Encoder_Parameter_Read();
-
 		/* Display */
-		//TEST_Encoder_Parameter_Display();
+		TEST_Encoder_Parameter_Display();
 #if 0
 		if (User_TS_GetState(&Touch_State) == 1)
 		{
@@ -233,8 +250,9 @@ void SystemClock_Config(void)
 	/** Initializes the RCC Oscillators according to the specified parameters
 	 * in the RCC_OscInitTypeDef structure.
 	 */
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSE;
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSE;
 	RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+	RCC_OscInitStruct.LSIState = RCC_LSI_ON;
 	RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
 	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
@@ -436,6 +454,35 @@ static void MX_I2C2_Init(void)
 }
 
 /**
+ * @brief IWDG1 Initialization Function
+ * @param None
+ * @retval None
+ */
+void MX_IWDG1_Init(void)
+{
+
+	/* USER CODE BEGIN IWDG1_Init 0 */
+
+	/* USER CODE END IWDG1_Init 0 */
+
+	/* USER CODE BEGIN IWDG1_Init 1 */
+
+	/* USER CODE END IWDG1_Init 1 */
+	hiwdg1.Instance = IWDG1;
+	hiwdg1.Init.Prescaler = IWDG_PRESCALER_256;
+	hiwdg1.Init.Window = 4095;
+	hiwdg1.Init.Reload = 4095;
+	if (HAL_IWDG_Init(&hiwdg1) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	/* USER CODE BEGIN IWDG1_Init 2 */
+
+	/* USER CODE END IWDG1_Init 2 */
+
+}
+
+/**
  * @brief JPEG Initialization Function
  * @param None
  * @retval None
@@ -521,6 +568,41 @@ static void MX_LTDC_Init(void)
 	/* USER CODE BEGIN LTDC_Init 2 */
 
 	/* USER CODE END LTDC_Init 2 */
+
+}
+
+/**
+ * @brief QUADSPI Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_QUADSPI_Init(void)
+{
+
+	/* USER CODE BEGIN QUADSPI_Init 0 */
+
+	/* USER CODE END QUADSPI_Init 0 */
+
+	/* USER CODE BEGIN QUADSPI_Init 1 */
+
+	/* USER CODE END QUADSPI_Init 1 */
+	/* QUADSPI parameter configuration*/
+	hqspi.Instance = QUADSPI;
+	hqspi.Init.ClockPrescaler = 1;
+	hqspi.Init.FifoThreshold = 4;
+	hqspi.Init.SampleShifting = QSPI_SAMPLE_SHIFTING_HALFCYCLE;
+	hqspi.Init.FlashSize = 25;
+	hqspi.Init.ChipSelectHighTime = QSPI_CS_HIGH_TIME_3_CYCLE;
+	hqspi.Init.ClockMode = QSPI_CLOCK_MODE_0;
+	hqspi.Init.FlashID = QSPI_FLASH_ID_1;
+	hqspi.Init.DualFlash = QSPI_DUALFLASH_DISABLE;
+	if (HAL_QSPI_Init(&hqspi) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	/* USER CODE BEGIN QUADSPI_Init 2 */
+
+	/* USER CODE END QUADSPI_Init 2 */
 
 }
 
