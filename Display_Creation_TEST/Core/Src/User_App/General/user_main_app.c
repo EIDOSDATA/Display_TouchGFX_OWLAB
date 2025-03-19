@@ -60,6 +60,10 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
+extern TIM_HandleTypeDef htim1;
+
+extern TIM_HandleTypeDef htim4;
+
 static uint16_t encoder_cnt1, encoder_cnt2;
 static uint16_t encoder_diff;
 static uint32_t gSchdule_tick_disp = 0;
@@ -178,6 +182,7 @@ void Test_Image_Print(void)
 		}
 	}
 }
+#endif
 
 /* Encoder State Function */
 void TEST_Encoder_State(void)
@@ -315,8 +320,8 @@ void TEST_Encoder_Parameter_Display(void)
 		gSchdule_tick_disp = HAL_GetTick();
 	}
 }
-#endif
 
+/* User System Initialization */
 void User_System_Init(void)
 {
 #if 0
@@ -386,10 +391,11 @@ void User_Main_App(void)
 	BSP_LCD_DrawBitmap(0, 0, (uint8_t*) pQSPI->LCD_IMAGE_BUFFER[2]);
 #endif
 
-#if 0
+#if 1
 	/* PWN Start */
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
 	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+
 	/* Encoder Start */
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
@@ -401,16 +407,6 @@ void User_Main_App(void)
 #if UNUSED
 	while (1)
 	{
-		/* State Machine */
-		TEST_Encoder_State();
-
-		/* Encoder Read */
-		TEST_Encoder_Parameter_Read();
-
-		/* Display */
-		TEST_Encoder_Parameter_Display();
-
-
 		if (iwdg_clear == 1)
 		{
 			/* Watch Dog Clear */
