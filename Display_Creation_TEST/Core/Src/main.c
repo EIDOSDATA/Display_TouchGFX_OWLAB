@@ -81,6 +81,8 @@ TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim13;
 
+PCD_HandleTypeDef hpcd_USB_OTG_FS;
+
 SDRAM_HandleTypeDef hsdram1;
 
 /* USER CODE BEGIN PV */
@@ -101,6 +103,7 @@ static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_I2C2_Init(void);
+static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -152,6 +155,7 @@ int main(void)
 	MX_SDMMC1_SD_Init();
 	MX_FATFS_Init();
 	MX_I2C2_Init();
+	MX_USB_OTG_FS_PCD_Init();
 	MX_TouchGFX_Init();
 	/* USER CODE BEGIN 2 */
 
@@ -229,8 +233,9 @@ void SystemClock_Config(void)
 	/** Initializes the RCC Oscillators according to the specified parameters
 	 * in the RCC_OscInitTypeDef structure.
 	 */
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSE;
 	RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+	RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
 	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 	RCC_OscInitStruct.PLL.PLLM = 2;
@@ -764,6 +769,42 @@ static void MX_TIM13_Init(void)
 
 	/* USER CODE END TIM13_Init 2 */
 	HAL_TIM_MspPostInit(&htim13);
+
+}
+
+/**
+ * @brief USB_OTG_FS Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_USB_OTG_FS_PCD_Init(void)
+{
+
+	/* USER CODE BEGIN USB_OTG_FS_Init 0 */
+
+	/* USER CODE END USB_OTG_FS_Init 0 */
+
+	/* USER CODE BEGIN USB_OTG_FS_Init 1 */
+
+	/* USER CODE END USB_OTG_FS_Init 1 */
+	hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
+	hpcd_USB_OTG_FS.Init.dev_endpoints = 9;
+	hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
+	hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
+	hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
+	hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
+	hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
+	hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
+	hpcd_USB_OTG_FS.Init.battery_charging_enable = DISABLE;
+	hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
+	hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
+	if (HAL_PCD_Init(&hpcd_USB_OTG_FS) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	/* USER CODE BEGIN USB_OTG_FS_Init 2 */
+
+	/* USER CODE END USB_OTG_FS_Init 2 */
 
 }
 
