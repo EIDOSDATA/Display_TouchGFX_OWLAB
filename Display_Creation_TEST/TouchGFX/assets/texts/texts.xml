@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.25.0">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_DS5X" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PREV</Translation>
+      </Text>
+      <Text Id="__SingleUse_JGSO" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">HOME PAGE</Translation>
+      </Text>
+      <Text Id="__SingleUse_QU33" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PREV</Translation>
+      </Text>
+      <Text Id="__SingleUse_SJ7G" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">NEXT</Translation>
+      </Text>
+      <Text Id="__SingleUse_7HY4" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">LOADING PAGE...</Translation>
+      </Text>
+      <Text Id="__SingleUse_IN8E" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">OWLAB LOGO PAGE</Translation>
+      </Text>
+      <Text Id="__SingleUse_MUAW" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">NEXT</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Large" Font="arial.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>
