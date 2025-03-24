@@ -13,6 +13,8 @@
 #include <gui/page_00_logo_screen/Page_00_LogoPresenter.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingView.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp>
+#include <gui/page_02_main_screen/Page_02_MainView.hpp>
+#include <gui/page_02_main_screen/Page_02_MainPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -68,4 +70,28 @@ void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionEast()
 void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionEastImpl()
 {
     touchgfx::makeTransition<Page_01_LoadingView, Page_01_LoadingPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionWest()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionWestImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoPage_01_LoadingScreenSlideTransitionWestImpl()
+{
+    touchgfx::makeTransition<Page_01_LoadingView, Page_01_LoadingPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// Page_02_Main
+
+void FrontendApplicationBase::gotoPage_02_MainScreenSlideTransitionEast()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoPage_02_MainScreenSlideTransitionEastImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoPage_02_MainScreenSlideTransitionEastImpl()
+{
+    touchgfx::makeTransition<Page_02_MainView, Page_02_MainPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

@@ -18,6 +18,8 @@
 #include <gui/page_00_logo_screen/Page_00_LogoPresenter.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingView.hpp>
 #include <gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp>
+#include <gui/page_02_main_screen/Page_02_MainView.hpp>
+#include <gui/page_02_main_screen/Page_02_MainPresenter.hpp>
 
 
 /**
@@ -42,7 +44,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< Page_00_LogoView,
             touchgfx::meta::TypeList< Page_01_LoadingView,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< Page_02_MainView,
+            touchgfx::meta::Nil > >
             > GeneratedViewTypes;
 
     /**
@@ -56,7 +59,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< Page_00_LogoPresenter,
             touchgfx::meta::TypeList< Page_01_LoadingPresenter,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< Page_02_MainPresenter,
+            touchgfx::meta::Nil > >
             > GeneratedPresenterTypes;
 
     /**

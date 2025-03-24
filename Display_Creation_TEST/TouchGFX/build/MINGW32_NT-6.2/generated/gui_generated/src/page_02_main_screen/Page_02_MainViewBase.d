@@ -1,5 +1,7 @@
-build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.o: \
- generated/gui_generated/src/common/FrontendApplicationBase.cpp \
+build/MINGW32_NT-6.2/generated/gui_generated/src/page_02_main_screen/Page_02_MainViewBase.o: \
+ generated/gui_generated/src/page_02_main_screen/Page_02_MainViewBase.cpp \
+ generated/gui_generated/include/gui_generated/page_02_main_screen/Page_02_MainViewBase.hpp \
+ gui/include/gui/common/FrontendApplication.hpp \
  generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp \
  ../Middlewares/ST/touchgfx/framework/include/common/AbstractPartition.hpp \
@@ -39,19 +41,9 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
- gui/include/gui/model/Model.hpp gui/include/gui/common/FrontendHeap.hpp \
- generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp \
- ../Middlewares/ST/touchgfx/framework/include/common/Meta.hpp \
- ../Middlewares/ST/touchgfx/framework/include/common/Partition.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/NoTransition.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/SnapshotWidget.hpp \
- gui/include/gui/common/FrontendApplication.hpp \
- gui/include/gui/page_00_logo_screen/Page_00_LogoView.hpp \
- generated/gui_generated/include/gui_generated/page_00_logo_screen/Page_00_LogoViewBase.hpp \
+ gui/include/gui/model/Model.hpp \
  ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
- gui/include/gui/page_00_logo_screen/Page_00_LogoPresenter.hpp \
+ gui/include/gui/page_02_main_screen/Page_02_MainPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
@@ -59,15 +51,13 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
- gui/include/gui/page_01_loading_screen/Page_01_LoadingView.hpp \
- generated/gui_generated/include/gui_generated/page_01_loading_screen/Page_01_LoadingViewBase.hpp \
- gui/include/gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp \
- gui/include/gui/page_02_main_screen/Page_02_MainView.hpp \
- generated/gui_generated/include/gui_generated/page_02_main_screen/Page_02_MainViewBase.hpp \
- gui/include/gui/page_02_main_screen/Page_02_MainPresenter.hpp \
- generated/texts/include/texts/TextKeysAndLanguages.hpp \
- ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
+ generated/images/include/images/BitmapDatabase.hpp \
+ generated/texts/include/texts/TextKeysAndLanguages.hpp
+
+generated/gui_generated/include/gui_generated/page_02_main_screen/Page_02_MainViewBase.hpp:
+
+gui/include/gui/common/FrontendApplication.hpp:
 
 generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
 
@@ -149,31 +139,9 @@ generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp
 
 gui/include/gui/model/Model.hpp:
 
-gui/include/gui/common/FrontendHeap.hpp:
-
-generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/common/Meta.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/common/Partition.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/NoTransition.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/SnapshotWidget.hpp:
-
-gui/include/gui/common/FrontendApplication.hpp:
-
-gui/include/gui/page_00_logo_screen/Page_00_LogoView.hpp:
-
-generated/gui_generated/include/gui_generated/page_00_logo_screen/Page_00_LogoViewBase.hpp:
-
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:
 
-gui/include/gui/page_00_logo_screen/Page_00_LogoPresenter.hpp:
+gui/include/gui/page_02_main_screen/Page_02_MainPresenter.hpp:
 
 gui/include/gui/model/ModelListener.hpp:
 
@@ -189,20 +157,8 @@ gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
 
-gui/include/gui/page_01_loading_screen/Page_01_LoadingView.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
 
-generated/gui_generated/include/gui_generated/page_01_loading_screen/Page_01_LoadingViewBase.hpp:
-
-gui/include/gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp:
-
-gui/include/gui/page_02_main_screen/Page_02_MainView.hpp:
-
-generated/gui_generated/include/gui_generated/page_02_main_screen/Page_02_MainViewBase.hpp:
-
-gui/include/gui/page_02_main_screen/Page_02_MainPresenter.hpp:
+generated/images/include/images/BitmapDatabase.hpp:
 
 generated/texts/include/texts/TextKeysAndLanguages.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp:

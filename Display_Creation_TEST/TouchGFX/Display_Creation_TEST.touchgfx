@@ -18,8 +18,8 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "NEXT_BTN_LOGO",
-            "X": 741,
-            "Y": 503,
+            "X": 730,
+            "Y": 500,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
@@ -72,13 +72,36 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "PREV_BTN_LOADING",
-            "X": 63,
-            "Y": 506,
+            "X": 50,
+            "Y": 500,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "TextId": "__SingleUse_SJ7G",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "NEXT_BTN_LOADING",
+            "X": 730,
+            "Y": 500,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_S6ON",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -105,6 +128,73 @@
               "ScreenTransitionType": "ScreenTransitionSlide",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "Page_00_Logo"
+            }
+          },
+          {
+            "InteractionName": "NEXT_BTN_Interaction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "NEXT_BTN_LOADING"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "Page_02_Main"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Page_02_Main",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 1024,
+            "Height": 600,
+            "Color": {
+              "Red": 61,
+              "Green": 81,
+              "Blue": 235
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PREV_BTN_MAIN",
+            "X": 49,
+            "Y": 500,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_UENW",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "PREV_BTN_Interaction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PREV_BTN_MAIN"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "Page_01_Loading"
             }
           }
         ]

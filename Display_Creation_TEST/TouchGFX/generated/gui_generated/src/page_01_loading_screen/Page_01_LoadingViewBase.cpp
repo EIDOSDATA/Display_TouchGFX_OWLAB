@@ -17,13 +17,21 @@ Page_01_LoadingViewBase::Page_01_LoadingViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(75, 209, 95));
     add(box1);
 
-    PREV_BTN_LOADING.setXY(63, 506);
+    PREV_BTN_LOADING.setXY(50, 500);
     PREV_BTN_LOADING.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     PREV_BTN_LOADING.setLabelText(touchgfx::TypedText(T___SINGLEUSE_SJ7G));
     PREV_BTN_LOADING.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     PREV_BTN_LOADING.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     PREV_BTN_LOADING.setAction(buttonCallback);
     add(PREV_BTN_LOADING);
+
+    NEXT_BTN_LOADING.setXY(730, 500);
+    NEXT_BTN_LOADING.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    NEXT_BTN_LOADING.setLabelText(touchgfx::TypedText(T___SINGLEUSE_S6ON));
+    NEXT_BTN_LOADING.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    NEXT_BTN_LOADING.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    NEXT_BTN_LOADING.setAction(buttonCallback);
+    add(NEXT_BTN_LOADING);
 }
 
 Page_01_LoadingViewBase::~Page_01_LoadingViewBase()
@@ -44,5 +52,12 @@ void Page_01_LoadingViewBase::buttonCallbackHandler(const touchgfx::AbstractButt
         //When PREV_BTN_LOADING clicked change screen to Page_00_Logo
         //Go to Page_00_Logo with screen transition towards West
         application().gotoPage_00_LogoScreenSlideTransitionWest();
+    }
+    if (&src == &NEXT_BTN_LOADING)
+    {
+        //NEXT_BTN_Interaction
+        //When NEXT_BTN_LOADING clicked change screen to Page_02_Main
+        //Go to Page_02_Main with screen transition towards East
+        application().gotoPage_02_MainScreenSlideTransitionEast();
     }
 }

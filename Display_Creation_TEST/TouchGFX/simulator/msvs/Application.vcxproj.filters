@@ -196,6 +196,18 @@
     <Filter Include="Source Files\generated\gui_generated\page_00_logo_screen">
       <UniqueIdentifier>7E0ABAEE-CB98-8C28-75D6-49882FB2AEC9</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\page_02_main_screen">
+      <UniqueIdentifier>4B2572E0-3C2B-2E41-EE72-AD1A171AADAB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\page_02_main_screen">
+      <UniqueIdentifier>F8912D33-37F5-D72B-F27B-79BDD98A9BE3</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\page_02_main_screen">
+      <UniqueIdentifier>1D9F7D62-EE8C-3990-A209-6BA3AC1F9705</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\page_02_main_screen">
+      <UniqueIdentifier>0697004C-FD35-B5A8-AEE6-D98BF546215E</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -245,6 +257,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\page_01_loading_screen\Page_01_LoadingViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\page_01_loading_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\page_02_main_screen\Page_02_MainPresenter.cpp">
+      <Filter>Source Files\gui\page_02_main_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\page_02_main_screen\Page_02_MainView.cpp">
+      <Filter>Source Files\gui\page_02_main_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\page_02_main_screen\Page_02_MainViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\page_02_main_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -705,6 +726,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\page_01_loading_screen\Page_01_LoadingViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\page_01_loading_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\page_02_main_screen\Page_02_MainPresenter.hpp">
+      <Filter>Header Files\gui\page_02_main_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\page_02_main_screen\Page_02_MainView.hpp">
+      <Filter>Header Files\gui\page_02_main_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\page_02_main_screen\Page_02_MainViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\page_02_main_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

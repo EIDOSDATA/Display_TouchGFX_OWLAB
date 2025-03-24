@@ -165,7 +165,7 @@ int main(void)
 	MX_QUADSPI_Init();
 	/* USER CODE BEGIN 2 */
 #if (!TOUCHGFX_ENABLED_MODE)
-	//MX_IWDG1_Init();
+	MX_IWDG1_Init();
 #else
 	MX_TouchGFX_Init();
 #endif
@@ -204,10 +204,10 @@ int main(void)
 	while (1)
 	{
 #if TOUCHGFX_ENABLED_MODE
-    /* USER CODE END WHILE */
+		/* USER CODE END WHILE */
 
-  MX_TouchGFX_Process();
-    /* USER CODE BEGIN 3 */
+		MX_TouchGFX_Process();
+		/* USER CODE BEGIN 3 */
 #endif
 		/* State Machine */
 		TEST_Encoder_State();

@@ -145,7 +145,7 @@ uint8_t User_TS_GetState(TS_StateTypeDef *TS_State)
 		else
 		{
 			/* LCD position is not inverted. */
-			TS_State->x_pos = x_raw % LCD_MAXIMUM_X_SIZE;
+			TS_State->x_pos = LCD_MAXIMUM_X_SIZE - (x_raw % LCD_MAXIMUM_X_SIZE);
 			TS_State->y_pos = y_raw % LCD_MAXIMUM_Y_SIZE;
 		}
 

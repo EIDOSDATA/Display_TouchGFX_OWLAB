@@ -17,7 +17,7 @@ Page_00_LogoViewBase::Page_00_LogoViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(237, 92, 92));
     add(box1);
 
-    NEXT_BTN_LOGO.setXY(741, 503);
+    NEXT_BTN_LOGO.setXY(730, 500);
     NEXT_BTN_LOGO.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     NEXT_BTN_LOGO.setLabelText(touchgfx::TypedText(T___SINGLEUSE_MUAW));
     NEXT_BTN_LOGO.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));

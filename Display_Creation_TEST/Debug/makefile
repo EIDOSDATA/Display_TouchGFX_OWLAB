@@ -12,6 +12,7 @@ RM := rm -rf
 -include Utilities/JPEG/subdir.mk
 -include TouchGFX/target/generated/subdir.mk
 -include TouchGFX/target/subdir.mk
+-include TouchGFX/gui/src/page_02_main_screen/subdir.mk
 -include TouchGFX/gui/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/gui/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/gui/src/model/subdir.mk
@@ -19,6 +20,7 @@ RM := rm -rf
 -include TouchGFX/generated/texts/src/subdir.mk
 -include TouchGFX/generated/images/src/__generated/subdir.mk
 -include TouchGFX/generated/images/src/subdir.mk
+-include TouchGFX/generated/gui_generated/src/page_02_main_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/common/subdir.mk
@@ -26,6 +28,7 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/hal/simulator/sdl2/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/driver/touch/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/simulator/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/gui/src/page_02_main_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/model/subdir.mk
@@ -35,6 +38,7 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/generated/simulator/src/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/images/src/__generated/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/images/src/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/page_02_main_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/page_01_loading_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/page_00_logo_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/common/subdir.mk

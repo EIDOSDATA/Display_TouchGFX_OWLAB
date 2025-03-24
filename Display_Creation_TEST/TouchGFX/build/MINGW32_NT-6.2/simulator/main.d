@@ -85,6 +85,9 @@ build/MINGW32_NT-6.2/simulator/main.o: simulator/main.cpp \
  gui/include/gui/page_01_loading_screen/Page_01_LoadingView.hpp \
  generated/gui_generated/include/gui_generated/page_01_loading_screen/Page_01_LoadingViewBase.hpp \
  gui/include/gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp \
+ gui/include/gui/page_02_main_screen/Page_02_MainView.hpp \
+ generated/gui_generated/include/gui_generated/page_02_main_screen/Page_02_MainViewBase.hpp \
+ gui/include/gui/page_02_main_screen/Page_02_MainPresenter.hpp \
  generated/gui_generated/include/gui_generated/common/SimConstants.hpp \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/SDL2TouchController.hpp \
  generated/simulator/include/simulator/mainBase.hpp
@@ -260,6 +263,12 @@ gui/include/gui/page_01_loading_screen/Page_01_LoadingView.hpp:
 generated/gui_generated/include/gui_generated/page_01_loading_screen/Page_01_LoadingViewBase.hpp:
 
 gui/include/gui/page_01_loading_screen/Page_01_LoadingPresenter.hpp:
+
+gui/include/gui/page_02_main_screen/Page_02_MainView.hpp:
+
+generated/gui_generated/include/gui_generated/page_02_main_screen/Page_02_MainViewBase.hpp:
+
+gui/include/gui/page_02_main_screen/Page_02_MainPresenter.hpp:
 
 generated/gui_generated/include/gui_generated/common/SimConstants.hpp:
 
