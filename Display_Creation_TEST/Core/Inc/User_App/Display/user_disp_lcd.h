@@ -43,7 +43,6 @@ extern void User_LCD_BackLight_Off(void);
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-#define LCD_POSITION_REVERSED		true
 #define LCD_MAXIMUM_X_SIZE			1024
 #define LCD_MAXIMUM_Y_SIZE			600
 

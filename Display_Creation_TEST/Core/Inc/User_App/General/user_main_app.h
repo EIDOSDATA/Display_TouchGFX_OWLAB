@@ -34,7 +34,7 @@ extern "C"
  * */
 typedef struct
 {
-	uint32_t dec_100M;  // 100,000,000 자리
+uint32_t	dec_100M;  // 100,000,000 자리
 	uint32_t dec_10M;// 10,000,000 자리
 	uint32_t dec_1M;// 1,000,000 자리
 	uint32_t dec_100K;// 100,000 자리
@@ -49,7 +49,6 @@ extern DecimalDigits digits;
 /*
  * Touch Screen Control Key Value
  * */
-extern int16_t keyValue;
 
 /* EEPROM Control Value ------------------------------ */
 
@@ -69,16 +68,19 @@ extern int16_t keyValue;
 
 /* Exported functions prototypes ---------------------------------------------*/
 /* USER CODE BEGIN EFP */
-extern void hex2dec(uint32_t hex);
-
-extern void User_Main_App(void);
-extern void User_System_Init(void);
-
 extern void Test_EEPROM_Read(void);
+extern void Test_Touch_Key_Event(void);
 extern void Test_Image_Print(void);
 extern void TEST_Encoder_State(void);
 extern void TEST_Encoder_Parameter_Read(void);
 extern void TEST_Encoder_Parameter_Display(void);
+
+extern void hex2dec(uint32_t hex);
+extern void User_Display_Loading_Sequence(void);
+
+extern void User_System_Init(void);
+extern void User_Main_App(void);
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -95,7 +97,7 @@ extern void TEST_Encoder_Parameter_Display(void);
 #define DEC_10		digits.dec_10
 #define DEC_1		digits.dec_1
 
-#define PROGRAM_VERSION "V2025.03.06"
+#define PROGRAM_VERSION "V2025.03.24"
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

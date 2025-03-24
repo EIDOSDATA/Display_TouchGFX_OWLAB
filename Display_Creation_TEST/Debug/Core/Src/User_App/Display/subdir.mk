@@ -6,15 +6,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/User_App/Display/user_disp_lcd.c \
-../Core/Src/User_App/Display/user_disp_touch.c 
+../Core/Src/User_App/Display/user_disp_touch.c \
+../Core/Src/User_App/Display/user_disp_touch_key.c 
 
 C_DEPS += \
 ./Core/Src/User_App/Display/user_disp_lcd.d \
-./Core/Src/User_App/Display/user_disp_touch.d 
+./Core/Src/User_App/Display/user_disp_touch.d \
+./Core/Src/User_App/Display/user_disp_touch_key.d 
 
 OBJS += \
 ./Core/Src/User_App/Display/user_disp_lcd.o \
-./Core/Src/User_App/Display/user_disp_touch.o 
+./Core/Src/User_App/Display/user_disp_touch.o \
+./Core/Src/User_App/Display/user_disp_touch_key.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,7 +27,7 @@ Core/Src/User_App/Display/%.o Core/Src/User_App/Display/%.su Core/Src/User_App/D
 clean: clean-Core-2f-Src-2f-User_App-2f-Display
 
 clean-Core-2f-Src-2f-User_App-2f-Display:
-	-$(RM) ./Core/Src/User_App/Display/user_disp_lcd.cyclo ./Core/Src/User_App/Display/user_disp_lcd.d ./Core/Src/User_App/Display/user_disp_lcd.o ./Core/Src/User_App/Display/user_disp_lcd.su ./Core/Src/User_App/Display/user_disp_touch.cyclo ./Core/Src/User_App/Display/user_disp_touch.d ./Core/Src/User_App/Display/user_disp_touch.o ./Core/Src/User_App/Display/user_disp_touch.su
+	-$(RM) ./Core/Src/User_App/Display/user_disp_lcd.cyclo ./Core/Src/User_App/Display/user_disp_lcd.d ./Core/Src/User_App/Display/user_disp_lcd.o ./Core/Src/User_App/Display/user_disp_lcd.su ./Core/Src/User_App/Display/user_disp_touch.cyclo ./Core/Src/User_App/Display/user_disp_touch.d ./Core/Src/User_App/Display/user_disp_touch.o ./Core/Src/User_App/Display/user_disp_touch.su ./Core/Src/User_App/Display/user_disp_touch_key.cyclo ./Core/Src/User_App/Display/user_disp_touch_key.d ./Core/Src/User_App/Display/user_disp_touch_key.o ./Core/Src/User_App/Display/user_disp_touch_key.su
 
 .PHONY: clean-Core-2f-Src-2f-User_App-2f-Display
 

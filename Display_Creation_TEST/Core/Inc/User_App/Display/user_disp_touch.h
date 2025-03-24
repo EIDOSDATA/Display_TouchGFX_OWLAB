@@ -27,7 +27,8 @@ extern "C"
  * */
 typedef struct
 {
-	uint16_t TouchDetected;
+	uint16_t is_pressed;
+	uint32_t timestamp;
 	uint16_t x_pos;
 	uint16_t y_pos;
 	uint16_t z_pos;

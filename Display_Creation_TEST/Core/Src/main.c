@@ -229,10 +229,14 @@ int main(void)
 #endif
 		/* State Machine */
 		TEST_Encoder_State();
+
 		/* Encoder Read */
 		TEST_Encoder_Parameter_Read();
+
 		/* Display */
-		TEST_Encoder_Parameter_Display();
+		//TEST_Encoder_Parameter_Display();
+		//Test_Image_Print();
+		Test_Touch_Key_Event();
 #if 0
 		if (User_TS_GetState(&Touch_State) == 1)
 		{

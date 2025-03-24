@@ -23,7 +23,8 @@
 #define __MAIN_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -34,6 +35,7 @@ extern "C" {
 #include "stdint.h"
 #include "string.h"
 #include "stdbool.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -91,7 +93,8 @@ void MX_IWDG1_Init(void);
 #define TOUCH_I2C1_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-#define TOUCHGFX_ENABLED_MODE false /* true or false */
+#define TOUCHGFX_ENABLED_MODE		false /* true or false */
+#define LCD_POSITION_REVERSED		true
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

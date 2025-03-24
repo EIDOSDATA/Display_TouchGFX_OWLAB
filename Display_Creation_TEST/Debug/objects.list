@@ -10,6 +10,7 @@
 "./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.o"
 "./Core/Src/User_App/Display/user_disp_lcd.o"
 "./Core/Src/User_App/Display/user_disp_touch.o"
+"./Core/Src/User_App/Display/user_disp_touch_key.o"
 "./Core/Src/User_App/General/user_main_app.o"
 "./Core/Src/User_App/General/user_stm32_tim.o"
 "./Core/Src/User_App/Memory/user_mem_eeprom_data.o"

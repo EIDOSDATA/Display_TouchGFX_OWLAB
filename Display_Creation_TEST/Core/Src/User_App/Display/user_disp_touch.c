@@ -136,27 +136,45 @@ uint8_t User_TS_GetState(TS_StateTypeDef *TS_State)
 		uint16_t x_raw = ((a_buffer[3] & 0xF) << 8) | a_buffer[4];
 		uint16_t y_raw = ((a_buffer[5] & 0xF) << 8) | a_buffer[6];
 
-		if (LCD_POSITION_REVERSED)
+		if (TOUCHGFX_ENABLED_MODE)
 		{
-			/* The LCD position has been inverted. */
-			TS_State->x_pos = LCD_MAXIMUM_X_SIZE - (x_raw % LCD_MAXIMUM_X_SIZE);
-			TS_State->y_pos = LCD_MAXIMUM_Y_SIZE - (y_raw % LCD_MAXIMUM_Y_SIZE);
+			if (LCD_POSITION_REVERSED)
+			{
+				/* The LCD position has been inverted. */
+				TS_State->x_pos = LCD_MAXIMUM_X_SIZE - (x_raw % LCD_MAXIMUM_X_SIZE);
+				TS_State->y_pos = LCD_MAXIMUM_Y_SIZE - (y_raw % LCD_MAXIMUM_Y_SIZE);
+			}
+			else
+			{
+				/* LCD position is not inverted. */
+				TS_State->x_pos = x_raw % LCD_MAXIMUM_X_SIZE;
+				TS_State->y_pos = y_raw % LCD_MAXIMUM_Y_SIZE;
+			}
 		}
 		else
 		{
-			/* LCD position is not inverted. */
-			TS_State->x_pos = LCD_MAXIMUM_X_SIZE - (x_raw % LCD_MAXIMUM_X_SIZE);
-			TS_State->y_pos = y_raw % LCD_MAXIMUM_Y_SIZE;
+			if (LCD_POSITION_REVERSED)
+			{
+				/* The LCD position has been inverted. */
+				TS_State->x_pos = LCD_MAXIMUM_X_SIZE - (x_raw % LCD_MAXIMUM_X_SIZE);
+				TS_State->y_pos = LCD_MAXIMUM_Y_SIZE - (y_raw % LCD_MAXIMUM_Y_SIZE);
+			}
+			else
+			{
+				/* LCD position is not inverted. */
+				TS_State->x_pos = x_raw % LCD_MAXIMUM_X_SIZE;
+				TS_State->y_pos = y_raw % LCD_MAXIMUM_Y_SIZE;
+			}
 		}
-
 		/* Set touch detected */
-		TS_State->TouchDetected = 1;
+		TS_State->is_pressed = 1;
+		TS_State->timestamp = HAL_GetTick();
 		return 1;
 	}
 	else
 	{
 		/* No touch detected */
-		TS_State->TouchDetected = 0;
+		// TS_State->is_pressed = 0;
 		return 0;
 	}
 }
