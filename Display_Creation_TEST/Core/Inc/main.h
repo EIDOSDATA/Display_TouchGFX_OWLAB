@@ -91,7 +91,7 @@ void MX_IWDG1_Init(void);
 #define TOUCH_I2C1_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-#define TOUCHGFX_ENABLED_MODE true /* true or false */
+#define TOUCHGFX_ENABLED_MODE false /* true or false */
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

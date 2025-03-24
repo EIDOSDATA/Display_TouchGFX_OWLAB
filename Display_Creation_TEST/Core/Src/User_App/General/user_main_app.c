@@ -327,48 +327,6 @@ void TEST_Encoder_Parameter_Display(void)
 /* User System Initialization */
 void User_System_Init(void)
 {
-#if 0
-	/* FUCK U BSP */
-	/* SDRAM Initialization */
-	User_SDRAM_Initialization_Sequence(&hsdram1, &command);
-
-	User_TFTLCD_Init();
-	BUZZER_Init();
-
-	MX_SDMMC1_SD_Init();
-	MX_FATFS_Init();
-
-	User_Touch_Init();
-
-	/* I2C2 EEPROM Initialization */
-	BSP_EEPROM_Init(); /* I2C2 */
-	EEPROM_DataInit();
-
-	/*
-	 * QSPI Initialization
-	 * */
-	User_QSPI_SaveData_To_FlashMemory();
-	MX_QUADSPI_Init();
-	BSP_QSPI_Init();
-	BSP_QSPI_EnableMemoryMappedMode();
-
-
-	/*
-	 * IWDG TEST
-	 * Determines if it is a Reset by the system Watchdog.
-	 * If it's Reset by the Watchdog, Rrun it.
-	 * */
-	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDG1RST) != RESET)
-	{
-		/* LCD Backlight On */
-		TIM13_LCD_Backlight_Bright_Control(EepData.BacklightBright);
-		BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "IWDG reset", CENTER_MODE);
-		HAL_Delay(2000);
-	}
-	/* Clear reset flags anyway */
-	__HAL_RCC_CLEAR_RESET_FLAGS();
-	MX_IWDG1_Init();
-#endif
 }
 
 /**
@@ -378,9 +336,7 @@ void User_System_Init(void)
 void User_Main_App(void)
 {
 	/* System Init */
-#if UNUSED
 	User_System_Init();
-#endif
 
 #if (!TOUCHGFX_ENABLED_MODE)
 	/* QSPI_NOR Memory -> Read -> LCD Image Print */

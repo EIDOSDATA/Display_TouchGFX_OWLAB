@@ -165,7 +165,25 @@ int main(void)
 	MX_QUADSPI_Init();
 	/* USER CODE BEGIN 2 */
 #if (!TOUCHGFX_ENABLED_MODE)
+
+#if 0
+	/*
+	 * IWDG TEST
+	 * Determines if it is a Reset by the system Watchdog.
+	 * If it's Reset by the Watchdog, Rrun it.
+	 * */
+	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDG1RST) != RESET)
+	{
+		/* LCD Backlight On */
+		TIM13_LCD_Backlight_Bright_Control(EepData.BacklightBright);
+		BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "IWDG reset", CENTER_MODE);
+		HAL_Delay(2000);
+	}
+	/* Clear reset flags anyway */
+	__HAL_RCC_CLEAR_RESET_FLAGS();
 	MX_IWDG1_Init();
+#endif
+
 #else
 	MX_TouchGFX_Init();
 #endif
