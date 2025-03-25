@@ -1,6 +1,6 @@
 /* USER CODE BEGIN Header */
 /*
- * user_disp.c
+ * user_disp_lcd.c
  *
  *  Created on: Mar 5, 2025
  *      Author: user

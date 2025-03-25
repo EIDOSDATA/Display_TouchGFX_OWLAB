@@ -1,6 +1,6 @@
 /* USER CODE BEGIN Header */
 /*
- * user_disp_touch_main_key.c
+ * user_disp_touch_key.c
  *
  *  Created on: Mar 10, 2025
  *      Author: user

@@ -1,6 +1,6 @@
 /* USER CODE BEGIN Header */
 /*
- * user_stm32_tim.h
+ * user_stm32_tim.c
  *
  *  Created on: Mar 6, 2025
  *      Author: user

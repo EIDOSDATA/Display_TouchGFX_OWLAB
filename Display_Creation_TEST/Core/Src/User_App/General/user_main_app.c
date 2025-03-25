@@ -1,6 +1,6 @@
 /* USER CODE BEGIN Header */
 /*
- * main_app.c
+ * user_main_app.c
  *
  *  Created on: Mar 6, 2025
  *      Author: user

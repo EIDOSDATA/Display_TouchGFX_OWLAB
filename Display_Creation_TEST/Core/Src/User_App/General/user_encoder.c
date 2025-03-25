@@ -1,6 +1,6 @@
 /* USER CODE BEGIN Header */
 /*
- * user_encoder.h
+ * user_encoder.c
  *
  *  Created on: Mar 25, 2025
  *      Author: user

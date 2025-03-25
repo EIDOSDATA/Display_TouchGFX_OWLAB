@@ -1,5 +1,5 @@
 /*
- * main_app.h
+ * user_main_app.h
  *
  *  Created on: Mar 6, 2025
  *      Author: user

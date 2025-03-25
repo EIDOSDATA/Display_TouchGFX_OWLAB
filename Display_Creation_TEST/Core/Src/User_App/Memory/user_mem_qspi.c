@@ -1,70 +1,17 @@
 /* USER CODE BEGIN Header */
-/**
- ******************************************************************************
- * @file    BSP/Src/qspi.c
- * @author  MCD Application Team
- * @brief   This example code shows how to use the QSPI Driver
- ******************************************************************************
- * @attention
- *
- * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- *   1. Redistributions of source code must retain the above copyright notice,
- *      this list of conditions and the following disclaimer.
- *   2. Redistributions in binary form must reproduce the above copyright notice,
- *      this list of conditions and the following disclaimer in the documentation
- *      and/or other materials provided with the distribution.
- *   3. Neither the name of STMicroelectronics nor the names of its contributors
- *      may be used to endorse or promote products derived from this software
- *      without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- ******************************************************************************
- */
-
 /*
  * user_mem_qspi.c
  *
- *  Created on: Mar 5, 2025
+ *  Created on: Mar 25, 2025
  *      Author: user
  */
 
-/** @addtogroup STM32F7xx_HAL_Examples
- * @{
- */
-
-/** @addtogroup BSP
- * @{
- */
-
 /* USER CODE END Header */
-
 /* Includes ------------------------------------------------------------------*/
 #include "user_mem_qspi.h"
-#include "fatfs.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "user_main_app.h"
-#include "user_stm32_tim.h"
-
-#include "user_disp_lcd.h"
-#include "user_disp_touch.h"
-
-#include "user_mem_sdcard.h"
-#include "user_mem_sdram.h"
-#include "user_mem_eeprom.h"
 
 /* USER CODE END Includes */
 
@@ -75,18 +22,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#if 0
-#define BUFFER_SIZE         ((uint32_t)0x0200)
-#define WRITE_READ_ADDR     ((uint32_t)0x0050)
-#endif
-#define QSPI_DEVICE_ADDR ((uint32_t)0x90000000)
 
-/*
- * TODO : CHECK PLZ
- * MAXIMUM_NUM_OF_FILES : 32
- * */
-#define MAXIMUM_NUM_OF_FILES 4
-#define MAXIMUM_FILE_NAME_LENGTH 100
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -96,377 +32,475 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern IWDG_HandleTypeDef hiwdg1;
-
-_QSPI_ADDRESS_t *pQSPI = (_QSPI_ADDRESS_t*) QSPI_DEVICE_ADDR;
-#if 0
-uint8_t qspi_aTxBuffer[BUFFER_SIZE];
-uint8_t qspi_aRxBuffer[BUFFER_SIZE];
-#endif
-
-/*
- * NOTE :
- * 	Responsible for the file name to be saved,
- * 	the number of files,
- * 	and the number of characters in the file name.
- * */
-static char sd_name[MAXIMUM_NUM_OF_FILES][MAXIMUM_FILE_NAME_LENGTH] =
-{
-#if 1
-		{ "OW4400_TEST/00_page0.bmp" },                         // 0
-		{ "OW4400_TEST/01_page1_Loading.bmp" },                 // 1
-		{ "OW4400_TEST/02_page2_RET.bmp" },                     // 2
-		{ "OW4400_TEST/03_page2_CET.bmp" },                     // 3
-#else
-
-		{ "JISAN_IMAGES/image00.bmp" },           // 0
-		{ "JISAN_IMAGES/image01.bmp" },           // 1
-		{ "JISAN_IMAGES/image02.bmp" },           // 2
-		{ "JISAN_IMAGES/image03.bmp" },           // 3
-		{ "JISAN_IMAGES/image04.bmp" },           // 4
-		{ "JISAN_IMAGES/image05.bmp" },           // 5
-#endif
-
-		};
+extern QSPI_HandleTypeDef hqspi;
+//QSPI_HandleTypeDef QSPIHandle;
+QSPI_CommandTypeDef sCommand;
+QSPI_AutoPollingTypeDef sConfig;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-void User_QSPI_Init(void);
+uint32_t User_QSPI_Startup(uint32_t Mode);
+uint32_t User_QSPI_DeInit(void);
+uint32_t User_QSPI_Read(uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
+uint32_t User_QSPI_Write(uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
+uint32_t User_QSPI_Erase_Block(uint32_t BlockAddress);
+uint32_t User_QSPI_Erase_Chip(void);
+uint32_t User_QSPI_GetStatus(void);
+uint32_t User_QSPI_GetInfo(User_QSPI_Info *pInfo);
 
-void User_QSPI_SaveData_To_FlashMemory(void);
-static void User_QSPI_Update_FlashMemory_Data(void);
-static void QSPI_SetHint(void);
-static uint8_t QSPI_Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint32_t BufferLength);
+static uint32_t User_QSPI_ResetMemory(QSPI_HandleTypeDef *hqspi);
+static uint32_t User_QSPI_EnterFourBytesAddress(QSPI_HandleTypeDef *hqspi);
+static uint32_t User_QSPI_DummyCyclesCfg(QSPI_HandleTypeDef *hqspi);
+static uint32_t User_QSPI_WriteEnable(QSPI_HandleTypeDef *hqspi);
+static uint32_t User_QSPI_EnableMemoryMappedMode(QSPI_HandleTypeDef *hqspi);
+static uint32_t User_QSPI_Shutdown(void);
+static uint32_t User_QSPI_Copy(uint32_t WriteAddr, uint32_t ReadAddr, uint32_t Size);
+static uint32_t User_QSPI_AutoPollingMemReady(QSPI_HandleTypeDef *hqspi, uint32_t Timeout);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-/*
- * User QSPI Initialization Sequence
- * */
-void User_QSPI_Init(void)
+/**
+ * @brief  Initializes and configure the QSPI interface.
+ * @retval QSPI memory status
+ */
+uint32_t User_QSPI_Startup(uint32_t Mode)
 {
-	User_QSPI_SaveData_To_FlashMemory();
-	//MX_QUADSPI_Init();
-	BSP_QSPI_Init();
-	BSP_QSPI_EnableMemoryMappedMode();
-}
+	hqspi.Instance = QUADSPI;
 
-/*
- * External Memory(NOR Flash) :: Data Save Check
- * */
-void User_QSPI_SaveData_To_FlashMemory(void)
-{
-	char print_str[100];
-	/*
-	 * NOTE :
-	 * 	QSPI(NOR Flash) Save Test.
-	 * 	When the LCD is touched, it is stored in external memory by QSPI communication.
-	 * */
-	uint16_t cnt = 0;
-
-	if (BSP_SD_IsDetected() == SD_PRESENT)
+	/* Call the DeInit function to reset the driver */
+	if (HAL_QSPI_DeInit(&hqspi) != HAL_OK)
 	{
-		/* Backlight ON */
-		User_LCD_BackLight_On();
-#if 0
-		LCD_ON();
-		TIM13_LCD_Backlight_Bright_Control(EepData.BacklightBright);
-#endif
-		BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "Touch to save QSPI Flash", CENTER_MODE);
-
-		while (cnt < 100)
-		{
-			HAL_IWDG_Refresh(&hiwdg1);
-			HAL_Delay(50);
-
-			if (User_TS_GetState(&Touch_State) == 1)
-			{
-				User_QSPI_Update_FlashMemory_Data();
-				break;
-			}
-
-			sprintf((char*) print_str, "Waiting for %2dsec", (5 - (cnt / 20)));
-			BSP_LCD_DisplayStringAt(20, 200, (uint8_t*) print_str, CENTER_MODE);
-
-			++cnt;
-		}
+		return MEMORY_ERROR;
 	}
+
+	/* System level initialization */
+	HAL_QSPI_MspInit(&hqspi);
+
+	/* sCommand initialize common parameter */
+	sCommand.AddressMode = QSPI_ADDRESS_NONE;
+	sCommand.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	sCommand.DataMode = QSPI_DATA_NONE;
+	sCommand.DummyCycles = 0;
+	sCommand.DdrMode = QSPI_DDR_MODE_DISABLE;
+	sCommand.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	sCommand.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
+	sCommand.AddressSize = QSPI_ADDRESS_32_BITS;
+
+	/* sConfig initialize common parameter */
+	sConfig.MatchMode = QSPI_MATCH_MODE_AND;
+	sConfig.StatusBytesSize = 1;
+	sConfig.Interval = 0x10;
+	sConfig.AutomaticStop = QSPI_AUTOMATIC_STOP_ENABLE;
+
+	/* QSPI initialization */
+	/* ClockPrescaler set to 1, so QSPI clock = 200MHz / (1+1) = 100MHz */
+	/* STM32 CUBE MX Area... */
+#if 1
+	hqspi.Init.ClockPrescaler = 1;
+	hqspi.Init.FifoThreshold = 4;
+	hqspi.Init.SampleShifting = QSPI_SAMPLE_SHIFTING_HALFCYCLE;
+	hqspi.Init.FlashSize = POSITION_VAL(N25Q512A_FLASH_SIZE) - 1; /* n25q512a */
+	hqspi.Init.ChipSelectHighTime = QSPI_CS_HIGH_TIME_3_CYCLE;
+	hqspi.Init.ClockMode = QSPI_CLOCK_MODE_0;
+	hqspi.Init.FlashID = QSPI_FLASH_ID_1;
+	hqspi.Init.DualFlash = QSPI_DUALFLASH_DISABLE;
+	if (HAL_QSPI_Init(&hqspi) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+#endif
+
+	/* QSPI memory reset */
+	if (User_QSPI_ResetMemory(&hqspi) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+#if (CODE_AREA == USE_QSPI)
+	/* Set the QSPI memory in 4-bytes address mode */
+	if (User_QSPI_EnterFourBytesAddress(&hqspi) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Configuration of the dummy cycles on QSPI memory side */
+	if (User_QSPI_DummyCyclesCfg(&hqspi) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Enable MemoryMapped mode */
+	if (User_QSPI_EnableMemoryMappedMode(&hqspi) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
+#elif (BINARY_AREA == USE_SPI_NOR)
+  if (QSPI_Copy(APPLICATION_ADDRESS, BINARY_BASE_OFFSET, BINARY_SIZE) != MEMORY_OK)
+  {
+    return MEMORY_ERROR;
+  }
+
+  if (QSPI_Shutdown() != MEMORY_OK)
+  {
+    return MEMORY_ERROR;
+  }
+#endif /* (CODE_AREA == USE_QSPI) */
+	return MEMORY_OK;
 }
 
 /**
- * @brief  QSPI DataSave
- * @param  None
+ * @brief  De-Initializes the QSPI interface.
+ * @retval QSPI memory status
+ */\
+uint32_t User_QSPI_DeInit(void)
+{
+	hqspi.Instance = QUADSPI;
+
+	/* Call the DeInit function to reset the driver */
+	if (HAL_QSPI_DeInit(&hqspi) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* System level De-initialization */
+	/* TODO : CHECK PLZ */
+	BSP_QSPI_MspDeInit(&hqspi, NULL);
+
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  This function reset the QSPI memory.
+ * @param  hqspi: QSPI handle
  * @retval None
  */
-#if 1
-static void User_QSPI_Update_FlashMemory_Data(void)
+static uint32_t User_QSPI_ResetMemory(QSPI_HandleTypeDef *hqspi)
 {
-	/* QSPI info structure */
-	static QSPI_Info pQSPI_Info;
-	uint8_t status;
+	QSPI_CommandTypeDef s_command;
 
-	QSPI_SetHint();
+	/* Initialize the reset enable command */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = RESET_ENABLE_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_NONE;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_NONE;
+	s_command.DummyCycles = 0;
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
 
-	while (User_TS_GetState(&Touch_State) == 1)
+	/* Send the command */
+	if (HAL_QSPI_Command(hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
 	{
-		/* Watchdog clear  */
-		HAL_IWDG_Refresh(&hiwdg1);
+		return MEMORY_ERROR;
 	}
-	/*##-1- Configure the QSPI device ##########################################*/
-	/* QSPI device configuration */
-	status = BSP_QSPI_Init();
 
-	if (status == QSPI_NOT_SUPPORTED)
+	/* Send the reset memory command */
+	s_command.Instruction = RESET_MEMORY_CMD; /* n25q512a */
+	if (HAL_QSPI_Command(hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
 	{
-		BSP_LCD_DisplayStringAt(20, 100, (uint8_t*) "QSPI Initialization : FAILED.", LEFT_MODE);
-		BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
+		return MEMORY_ERROR;
 	}
-	else if (status == QSPI_ERROR)
+
+	/* Configure automatic polling mode to wait the memory is ready */
+	if (User_QSPI_AutoPollingMemReady(hqspi, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != MEMORY_OK)
 	{
-		BSP_LCD_DisplayStringAt(20, 100, (uint8_t*) "QSPI Initialization : FAILED.", LEFT_MODE);
-		BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
+		return MEMORY_ERROR;
 	}
-	else
+
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  This function set the QSPI memory in 4-byte address mode
+ * @param  hqspi: QSPI handle
+ * @retval None
+ */
+static uint32_t User_QSPI_EnterFourBytesAddress(QSPI_HandleTypeDef *hqspi)
+{
+	QSPI_CommandTypeDef s_command;
+
+	/* Initialize the command */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = ENTER_4_BYTE_ADDR_MODE_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_NONE;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_NONE;
+	s_command.DummyCycles = 0;
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
+
+	/* Enable write operations */
+	if (User_QSPI_WriteEnable(hqspi) != MEMORY_OK)
 	{
-		BSP_LCD_DisplayStringAt(20, 100, (uint8_t*) "QSPI Initialization : OK.", LEFT_MODE);
+		return MEMORY_ERROR;
+	}
 
-		/*##-2- Read & check the QSPI info #######################################*/
-		/* Initialize the structure */
-		pQSPI_Info.FlashSize = (uint32_t) 0x00;
-		pQSPI_Info.EraseSectorSize = (uint32_t) 0x00;
-		pQSPI_Info.EraseSectorsNumber = (uint32_t) 0x00;
-		pQSPI_Info.ProgPageSize = (uint32_t) 0x00;
-		pQSPI_Info.ProgPagesNumber = (uint32_t) 0x00;
+	/* Send the command */
+	if (HAL_QSPI_Command(hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
 
-		/* Read the QSPI memory info */
-		BSP_QSPI_GetInfo(&pQSPI_Info);
+	/* Configure automatic polling mode to wait the memory is ready */
+	if (User_QSPI_AutoPollingMemReady(hqspi, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
 
-		/* Test the correctness */
-		if ((pQSPI_Info.FlashSize != 0x4000000) || (pQSPI_Info.EraseSectorSize != 0x1000) || (pQSPI_Info.ProgPageSize != 0x100) || (pQSPI_Info.EraseSectorsNumber != 16384) || (pQSPI_Info.ProgPagesNumber != 262144))
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  This function configure the dummy cycles on memory side.
+ * @param  hqspi: QSPI handle
+ * @retval None
+ */
+static uint32_t User_QSPI_DummyCyclesCfg(QSPI_HandleTypeDef *hqspi)
+{
+	QSPI_CommandTypeDef s_command;
+	uint16_t reg = 0;
+
+	/* Initialize the read volatile configuration register command */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = READ_VOL_CFG_REG_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_NONE;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_1_LINE;
+	s_command.DummyCycles = 0;
+	s_command.NbData = 1;
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
+
+	/* Configure the command */
+	if (HAL_QSPI_Command(hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Reception of the data */
+	if (HAL_QSPI_Receive(hqspi, (uint8_t*) (&reg), HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Enable write operations */
+	if (User_QSPI_WriteEnable(hqspi) != MEMORY_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Update volatile configuration register (with new dummy cycles) */
+	s_command.Instruction = WRITE_VOL_CFG_REG_CMD; /* n25q512a */
+	MODIFY_REG(reg, N25Q512A_VCR_NB_DUMMY, (N25Q512A_DUMMY_CYCLES_READ_QUAD << POSITION_VAL(N25Q512A_VCR_NB_DUMMY)));
+
+	/* Configure the write volatile configuration register command */
+	if (HAL_QSPI_Command(hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Transmission of the data */
+	if (HAL_QSPI_Transmit(hqspi, (uint8_t*) (&reg), HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  This function send a Write Enable and wait it is effective.
+ * @param  hqspi: QSPI handle
+ * @retval None
+ */
+static uint32_t User_QSPI_WriteEnable(QSPI_HandleTypeDef *hqspi)
+{
+	QSPI_CommandTypeDef s_command;
+	QSPI_AutoPollingTypeDef s_config;
+
+	/* Enable write operations */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = WRITE_ENABLE_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_NONE;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_NONE;
+	s_command.DummyCycles = 0;
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
+
+	if (HAL_QSPI_Command(hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* Configure automatic polling mode to wait for write enabling */
+	s_config.Match = N25Q512A_SR_WREN; /* n25q512a */
+	s_config.Mask = N25Q512A_SR_WREN; /* n25q512a */
+	s_config.MatchMode = QSPI_MATCH_MODE_AND;
+	s_config.StatusBytesSize = 1;
+	s_config.Interval = 0x10;
+	s_config.AutomaticStop = QSPI_AUTOMATIC_STOP_ENABLE;
+
+	s_command.Instruction = READ_STATUS_REG_CMD; /* n25q512a */
+	s_command.DataMode = QSPI_DATA_1_LINE;
+
+	if (HAL_QSPI_AutoPolling(hqspi, &s_command, &s_config, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  Configure the QSPI in memory-mapped mode
+ * @retval QSPI memory status
+ */
+static uint32_t User_QSPI_EnableMemoryMappedMode(QSPI_HandleTypeDef *hqspi)
+{
+	QSPI_CommandTypeDef s_command;
+	QSPI_MemoryMappedTypeDef s_mem_mapped_cfg;
+
+	/* Configure the command for the read instruction */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = QUAD_OUT_FAST_READ_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_1_LINE;
+	s_command.AddressSize = QSPI_ADDRESS_32_BITS;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_4_LINES;
+	s_command.DummyCycles = N25Q512A_DUMMY_CYCLES_READ_QUAD; /* n25q512a */
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
+
+	/* Configure the memory mapped mode */
+	s_mem_mapped_cfg.TimeOutActivation = QSPI_TIMEOUT_COUNTER_DISABLE;
+	s_mem_mapped_cfg.TimeOutPeriod = 0;
+
+	if (HAL_QSPI_MemoryMapped(hqspi, &s_command, &s_mem_mapped_cfg) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  De-Initializes and the QSPI interface.
+ * @retval None
+ */
+static uint32_t User_QSPI_Shutdown(void)
+{
+	/* Call the DeInit function to reset the driver */
+	if (HAL_QSPI_DeInit(&hqspi) != HAL_OK)
+	{
+		return MEMORY_ERROR;
+	}
+
+	/* System level De-initialization */
+	// QSPI_MspDeInit();
+	return MEMORY_OK;
+}
+
+/**
+ * @brief  Copy an amount of data from the QSPI memory to destination memory.
+ * @param  WriteAddr: Pointer to data to be read
+ * @param  ReadAddr: Read start address
+ * @param  Size: Size of data to read
+ * @retval QSPI memory status
+ */
+static uint32_t User_QSPI_Copy(uint32_t WriteAddr, uint32_t ReadAddr, uint32_t Size)
+{
+	QSPI_CommandTypeDef s_command;
+
+	/* Initialize the read command */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = FAST_READ_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_1_LINE;
+	s_command.AddressSize = QSPI_ADDRESS_24_BITS;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_1_LINE;
+	s_command.DummyCycles = N25Q512A_DUMMY_CYCLES_READ; /* n25q512a */
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
+
+	while (Size)
+	{
+		s_command.NbData = (Size < 256) ? Size : 256;
+		s_command.Address = ReadAddr;
+
+		/* Configure the command */
+		if (HAL_QSPI_Command(&hqspi, &s_command, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
 		{
-			BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) "QSPI GET INFO : FAILED.", LEFT_MODE);
-			BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
+			return MEMORY_ERROR;
+		}
+
+		/* Reception of the data */
+		if (HAL_QSPI_Receive(&hqspi, (uint8_t*) WriteAddr, HAL_QPSI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
+		{
+			return MEMORY_ERROR;
+		}
+
+		if (Size > 256)
+		{
+			Size -= 256;
+			WriteAddr += 256;
+			ReadAddr += 256;
 		}
 		else
 		{
-			BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) "QSPI GET INFO : OK.   ", LEFT_MODE);
-
-			uint8_t fail = 0;
-			uint8_t qspi_print_str[100];
-
-			if (fail != 0)
-			{
-				BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "QSPI ERASE : FAILED.", LEFT_MODE);
-				BSP_LCD_DisplayStringAt(20, 175, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
-			}
-			else
-			{
-				/*##-4- QSPI memory read/write access  #################################*/
-				/* Fill the buffer to write */
-				_QSPI_ADDRESS_t *pQSPI_Addr = 0x0;
-
-				fail = 0;
-
-				/*
-				 * NOTE:
-				 * 	file_num : Number of files to save.
-				 * 	Maximum : 32
-				 * */
-				for (uint8_t file_num = 0; file_num < MAXIMUM_NUM_OF_FILES; file_num++)
-				{
-					memset((uint8_t*) pSD->INTERNAL_BUFFER, 0xFF, sizeof(pSD->INTERNAL_BUFFER));
-
-					/* Read File */
-					if (User_SDCARD_OpenRead_BMP_File((uint8_t*) pSD->INTERNAL_BUFFER, sd_name[file_num]) == 0) //;
-					{
-						sprintf((char*) qspi_print_str, "SDCARD READ[%02d] : FAILED   ", (file_num + 1));
-						BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) qspi_print_str, LEFT_MODE);
-						fail++;
-						break;
-					}
-
-					sprintf((char*) qspi_print_str, "QSPI COMPARE[%02d]  : Comparing", (file_num + 1));
-					BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) qspi_print_str, LEFT_MODE);
-
-					/* Read external memory by QSPI Communication. */
-					if (BSP_QSPI_Read((uint8_t*) pSD->LCD_IMAGE_BUFFER[0], (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != QSPI_OK)
-					{
-						fail++;
-						break;
-					}
-
-					/* Compare buffers read by QSPI */
-					if (QSPI_Buffercmp((uint8_t*) pSD->INTERNAL_BUFFER, (uint8_t*) pSD->LCD_IMAGE_BUFFER[0], sizeof(pSD->INTERNAL_BUFFER)) != 0)
-					{
-						/*
-						 * NOTE :
-						 * 	If the image is not the same, update the image.
-						 * */
-
-						sprintf((char*) qspi_print_str, "QSPI COMPARE[%02d]  : FAILED   ", (file_num + 1));
-						BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) qspi_print_str, LEFT_MODE);
-
-						/*
-						 * Clear QSPI external memory
-						 * 	- Specify the memory area to delete.
-						 * 	- Specified in <<< 4Kbyte >>> units
-						 *
-						 * 	Example
-						 * 	 - sector = 1024 / 4096(64Kbyte) * (32 * 32) = 64MByte
-						 * 	 - 2MByte (64Kbyte * 32) allocated per image(one).
-						 * */
-						for (uint32_t sector = 0; sector < 32; sector++)
-						{
-							if (BSP_QSPI_Erase_Block(((file_num * 32) + sector) * N25Q512A_SECTOR_SIZE) != QSPI_OK)
-							{
-								fail++;
-								sprintf((char*) qspi_print_str, "QSPI ERASED[%02d]  : FAILED  ", (file_num + 1));
-								BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) qspi_print_str, LEFT_MODE);
-								break;
-							}
-							else
-							{
-#if 0
-								/* TEST */
-								sprintf((char*) print_str, "sector : %5d_erased", sector);
-								BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) print_str, LEFT_MODE);
-#endif
-								if (sector == 31)
-								{
-									sprintf((char*) qspi_print_str, "QSPI ERASED[%02d]  : OK.     ", (file_num + 1));
-									BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) qspi_print_str, LEFT_MODE);
-								}
-							}
-						}
-
-						/* Write external memory by QSPI Communication. */
-						if (BSP_QSPI_Write((uint8_t*) pSD->INTERNAL_BUFFER, (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != QSPI_OK)
-						{
-							/* TODO : ERROR CHECK */
-							fail++;
-							sprintf((char*) qspi_print_str, "QSPI WRITE[%02d]  : FAILED  ", (file_num + 1));
-							BSP_LCD_DisplayStringAt(20, 175, (uint8_t*) qspi_print_str, LEFT_MODE);
-							break;
-						}
-						else
-						{
-							sprintf((char*) qspi_print_str, "QSPI WRITE[%02d]  : OK.     ", (file_num + 1));
-							BSP_LCD_DisplayStringAt(20, 175, (uint8_t*) qspi_print_str, LEFT_MODE);
-						}
-
-						/* Read external memory by QSPI Communication. */
-						if (BSP_QSPI_Read((uint8_t*) pSD->LCD_IMAGE_BUFFER[0], (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != QSPI_OK)
-						{
-							fail++;
-							break;
-						}
-
-						/* Compare buffers read by QSPI */
-						if (QSPI_Buffercmp((uint8_t*) pSD->INTERNAL_BUFFER, (uint8_t*) pSD->LCD_IMAGE_BUFFER[0], sizeof(pSD->INTERNAL_BUFFER)) > 0)
-						{
-							/* TODO : ERROR CHECK */
-							fail++;
-							sprintf((char*) qspi_print_str, "QSPI READ[%02d]  : FAILED  ", (file_num + 1));
-							BSP_LCD_DisplayStringAt(20, 200, (uint8_t*) qspi_print_str, LEFT_MODE);
-							break;
-						}
-						else
-						{
-							sprintf((char*) qspi_print_str, "QSPI READ[%02d]  : OK.     ", (file_num + 1));
-							BSP_LCD_DisplayStringAt(20, 200, (uint8_t*) qspi_print_str, LEFT_MODE);
-						}
-					}
-					else
-					{
-						sprintf((char*) qspi_print_str, "QSPI COMPARE[%02d]  : OK.      ", (file_num + 1));
-						BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) qspi_print_str, LEFT_MODE);
-					}
-				}
-
-				if (fail != 0)
-				{
-					BSP_LCD_DisplayStringAt(20, 225, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
-					while (1)
-					{
-					}
-				}
-				else
-				{
-					BSP_LCD_DisplayStringAt(20, 225, (uint8_t*) "QSPI Writing : OK.     ", LEFT_MODE);
-					HAL_Delay(3000);
-				}
-			}
+			Size = 0;
 		}
 	}
-	BSP_LCD_Clear(LCD_COLOR_WHITE);
+
+	return MEMORY_OK;
+
 }
-#endif
 
 /**
- * @brief  Display QSPI Demo Hint
- * @param  None
+ * @brief  This function read the SR of the memory and wait the EOP.
+ * @param  hqspi: QSPI handle
+ * @param  Timeout
  * @retval None
  */
-static void QSPI_SetHint(void)
+static uint32_t User_QSPI_AutoPollingMemReady(QSPI_HandleTypeDef *hqspi, uint32_t Timeout)
 {
-	/* Clear the LCD */
-	BSP_LCD_Clear(LCD_COLOR_WHITE);
+	QSPI_CommandTypeDef s_command;
+	QSPI_AutoPollingTypeDef s_config;
 
-	/* Set LCD Demo description */
-	BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
-	BSP_LCD_FillRect(0, 0, BSP_LCD_GetXSize(), 80);
-	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-	BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
-	BSP_LCD_SetFont(&Font24);
-	BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "QSPI", CENTER_MODE);
-#if 0
-	BSP_LCD_SetFont(&Font12);
-	BSP_LCD_DisplayStringAt(0, 30, (uint8_t*) "This example shows how to write", CENTER_MODE);
-	BSP_LCD_DisplayStringAt(0, 45, (uint8_t*) "and read data on QSPI memory", CENTER_MODE);
-	BSP_LCD_DisplayStringAt(0, 60, (uint8_t*) "(Hardware modifications needed)", CENTER_MODE);
-#endif
+	/* Configure automatic polling mode to wait for memory ready */
+	s_command.InstructionMode = QSPI_INSTRUCTION_1_LINE;
+	s_command.Instruction = READ_STATUS_REG_CMD; /* n25q512a */
+	s_command.AddressMode = QSPI_ADDRESS_NONE;
+	s_command.AlternateByteMode = QSPI_ALTERNATE_BYTES_NONE;
+	s_command.DataMode = QSPI_DATA_1_LINE;
+	s_command.DummyCycles = 0;
+	s_command.DdrMode = QSPI_DDR_MODE_DISABLE;
+	s_command.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
+	s_command.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
 
-	/* Set the LCD Text Color */
-	BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
-	BSP_LCD_DrawRect(10, 90, BSP_LCD_GetXSize() - 20, BSP_LCD_GetYSize() - 100);
-	BSP_LCD_DrawRect(11, 91, BSP_LCD_GetXSize() - 22, BSP_LCD_GetYSize() - 102);
+	s_config.Match = 0;
+	s_config.MatchMode = QSPI_MATCH_MODE_AND;
+	s_config.Interval = 0x10;
+	s_config.AutomaticStop = QSPI_AUTOMATIC_STOP_ENABLE;
+	s_config.Mask = N25Q512A_SR_WIP; /* n25q512a */
+	s_config.StatusBytesSize = 1;
 
-	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-	BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-}
-
-/**
- * @brief  Compares two buffers.
- * @param  pBuffer1, pBuffer2: buffers to be compared.
- * @param  BufferLength: buffer's length
- * @retval 1: pBuffer identical to pBuffer1
- *         0: pBuffer differs from pBuffer1
- */
-static uint8_t QSPI_Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint32_t BufferLength)
-{
-	while (BufferLength--)
+	if (HAL_QSPI_AutoPolling(hqspi, &s_command, &s_config, Timeout) != HAL_OK)
 	{
-		if (*pBuffer1 != *pBuffer2)
-		{
-			return 1;
-		}
-
-		pBuffer1++;
-		pBuffer2++;
+		return MEMORY_ERROR;
 	}
 
-	return 0;
+	return MEMORY_OK;
 }
+
 /* USER CODE END 0 */
 
-/**
- * @}
- */
-
-/**
- * @}
- */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

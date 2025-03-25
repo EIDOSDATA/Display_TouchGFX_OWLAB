@@ -16,6 +16,7 @@
 "./Core/Src/User_App/Memory/user_mem_eeprom.o"
 "./Core/Src/User_App/Memory/user_mem_eeprom_app.o"
 "./Core/Src/User_App/Memory/user_mem_qspi.o"
+"./Core/Src/User_App/Memory/user_mem_qspi_app.o"
 "./Core/Src/User_App/Memory/user_mem_sdcard.o"
 "./Core/Src/User_App/Memory/user_mem_sdram.o"
 "./Core/Src/main.o"
