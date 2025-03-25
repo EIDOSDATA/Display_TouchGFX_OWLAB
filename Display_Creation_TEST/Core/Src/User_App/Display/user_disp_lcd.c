@@ -9,9 +9,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "user_disp_lcd.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "fonts.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

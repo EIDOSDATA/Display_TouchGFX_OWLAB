@@ -54,6 +54,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "user_mem_qspi.h"
 #include "fatfs.h"
+/* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "user_main_app.h"
 #include "user_stm32_tim.h"
@@ -62,8 +63,8 @@
 #include "user_disp_touch.h"
 
 #include "user_mem_sdcard.h"
-#include "user_mem_eeprom_data.h"
 #include "user_mem_sdram.h"
+#include "user_mem_eeprom.h"
 
 /* USER CODE END Includes */
 

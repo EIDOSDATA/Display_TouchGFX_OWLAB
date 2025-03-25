@@ -8,13 +8,15 @@
 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include <user_main_app.h>
 #include "user_stm32_tim.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-/* USER CODE END Includes */
 #include "user_gpio_ctrl.h"
 #include "user_buzzer.h"
+#include "user_main_app.h"
+
+/* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */

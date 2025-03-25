@@ -10,6 +10,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "user_mem_sdcard.h"
 #include "fatfs.h"
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/

@@ -8,14 +8,14 @@
 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "user_mem_eeprom_data.h"
+#include "user_mem_eeprom.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "fonts.h"
 #include "user_main_app.h"
 #include "user_disp_lcd.h"
 #include "user_buzzer.h"
-#include "string.h"
 
 /* USER CODE END Includes */
 

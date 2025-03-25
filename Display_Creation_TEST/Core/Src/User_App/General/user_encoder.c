@@ -9,10 +9,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "user_encoder.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "user_disp_lcd.h"
 /* USER CODE END Includes */
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */

@@ -8,9 +8,11 @@
 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "user_mem_eeprom_data.h"
+#include "user_mem_eeprom.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
 #include "user_disp_lcd.h"
 
 /* USER CODE END Includes */

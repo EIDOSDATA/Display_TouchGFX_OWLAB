@@ -9,9 +9,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "user_mem_sdram.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
