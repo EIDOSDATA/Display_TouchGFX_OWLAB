@@ -24,27 +24,31 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-/* Display Folder Header ------------------------------*/
-#include "user_main_app.h"
-
-/* Display :: User Interface */
+/* Display :: Touch Screen */
 #include "user_disp_touch.h"
 #include "user_disp_lcd.h"
-
-#include "user_sys_init.h" /* Unused In this file */
-#include "user_buzzer.h" /* Unused In this file */
-#include "user_gpio_ctrl.h" /* Unused In this file */
+#include "user_disp_touch_key.h"
 
 /* General :: System Control */
+#include "user_buzzer.h"
+#include "user_encoder.h"
+#include "user_gpio_ctrl.h" /* Unused In this file */
+#include "user_main_app.h"
 #include "user_stm32_tim.h"
 
-/* Memory Folder Header ------------------------------*/
-/* Memory */
+/*
+ * Memory :: External EEPROM, NOR Flash, SDRAM, SDCARD
+ * 	- EEPROM : I2C
+ * 	- NOR FLASH : QSPI
+ * 	- SDRAM : FMC
+ * 	- SDCARD : SDMMC
+ * */
 #include "fatfs_storage.h"  /* Unused In this file */
 #include "n25q512a.h"  /* Unused In this file */
 #include "user_mem_eeprom_data.h"
 #include "user_mem_sdram.h"
 #include "user_mem_qspi.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -169,13 +173,13 @@ int main(void)
 #if 0
 	/*
 	 * IWDG TEST
-	 * Determines if it is a Reset by the system Watchdog.
-	 * If it's Reset by the Watchdog, Rrun it.
+	 * Determines if it is a Reset by the system Watch-dog.
+	 * If it's Reset by the Watch-dog, Run it.
 	 * */
 	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDG1RST) != RESET)
 	{
 		/* LCD Backlight On */
-		TIM13_LCD_Backlight_Bright_Control(EepData.BacklightBright);
+		User_LCD_BackLight_On();
 		BSP_LCD_DisplayStringAt(20, 150, (uint8_t*) "IWDG reset", CENTER_MODE);
 		HAL_Delay(2000);
 	}
@@ -227,20 +231,16 @@ int main(void)
 		MX_TouchGFX_Process();
 		/* USER CODE BEGIN 3 */
 #endif
-		/* State Machine */
-		TEST_Encoder_State();
 
-		/* Encoder Read */
-		TEST_Encoder_Parameter_Read();
-
-		/* Display */
-		//TEST_Encoder_Parameter_Display();
-		//Test_Image_Print();
-		Test_Touch_Key_Event();
+#if 1
+		/* Encoder Handle Operation */
+		User_Handle_Encoder_Operation();
+#else
+		/* Display Test */
 #if 0
-		if (User_TS_GetState(&Touch_State) == 1)
-		{
-		}
+		Test_Image_Print();
+#endif
+		Test_Touch_Key_Event();
 #endif
 	}
 	/* USER CODE END 3 */

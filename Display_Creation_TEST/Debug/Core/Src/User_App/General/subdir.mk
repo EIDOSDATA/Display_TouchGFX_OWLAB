@@ -5,14 +5,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/User_App/General/user_encoder.c \
 ../Core/Src/User_App/General/user_main_app.c \
 ../Core/Src/User_App/General/user_stm32_tim.c 
 
 C_DEPS += \
+./Core/Src/User_App/General/user_encoder.d \
 ./Core/Src/User_App/General/user_main_app.d \
 ./Core/Src/User_App/General/user_stm32_tim.d 
 
 OBJS += \
+./Core/Src/User_App/General/user_encoder.o \
 ./Core/Src/User_App/General/user_main_app.o \
 ./Core/Src/User_App/General/user_stm32_tim.o 
 
@@ -24,7 +27,7 @@ Core/Src/User_App/General/%.o Core/Src/User_App/General/%.su Core/Src/User_App/G
 clean: clean-Core-2f-Src-2f-User_App-2f-General
 
 clean-Core-2f-Src-2f-User_App-2f-General:
-	-$(RM) ./Core/Src/User_App/General/user_main_app.cyclo ./Core/Src/User_App/General/user_main_app.d ./Core/Src/User_App/General/user_main_app.o ./Core/Src/User_App/General/user_main_app.su ./Core/Src/User_App/General/user_stm32_tim.cyclo ./Core/Src/User_App/General/user_stm32_tim.d ./Core/Src/User_App/General/user_stm32_tim.o ./Core/Src/User_App/General/user_stm32_tim.su
+	-$(RM) ./Core/Src/User_App/General/user_encoder.cyclo ./Core/Src/User_App/General/user_encoder.d ./Core/Src/User_App/General/user_encoder.o ./Core/Src/User_App/General/user_encoder.su ./Core/Src/User_App/General/user_main_app.cyclo ./Core/Src/User_App/General/user_main_app.d ./Core/Src/User_App/General/user_main_app.o ./Core/Src/User_App/General/user_main_app.su ./Core/Src/User_App/General/user_stm32_tim.cyclo ./Core/Src/User_App/General/user_stm32_tim.d ./Core/Src/User_App/General/user_stm32_tim.o ./Core/Src/User_App/General/user_stm32_tim.su
 
 .PHONY: clean-Core-2f-Src-2f-User_App-2f-General
 

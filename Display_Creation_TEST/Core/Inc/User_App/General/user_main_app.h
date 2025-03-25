@@ -71,9 +71,9 @@ extern DecimalDigits digits;
 extern void Test_EEPROM_Read(void);
 extern void Test_Touch_Key_Event(void);
 extern void Test_Image_Print(void);
-extern void TEST_Encoder_State(void);
-extern void TEST_Encoder_Parameter_Read(void);
-extern void TEST_Encoder_Parameter_Display(void);
+extern void User_Update_Encoder_State(void);
+extern void User_Encoder_Parameter_Read(void);
+extern void User_Encoder_Parameter_Display(void);
 
 extern void hex2dec(uint32_t hex);
 extern void User_Display_Loading_Sequence(void);
