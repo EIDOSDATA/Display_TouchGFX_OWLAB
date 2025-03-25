@@ -56,22 +56,14 @@
 #include "fatfs.h"
 /* USER CODE BEGIN Includes */
 #include "user_main_app.h"
+#include "user_stm32_tim.h"
 
 #include "user_disp_lcd.h"
 #include "user_disp_touch.h"
+
+#include "user_mem_sdcard.h"
 #include "user_mem_eeprom_data.h"
-
-#include "fatfs_storage.h"
-#include "user_stm32_tim.h"
 #include "user_mem_sdram.h"
-
-/*
- * STM32 H7 and F7 BSP
- * */
-#include "stm32h743i_eval_lcd.h"
-//#include "stm32h743i_eval_sdram.h"
-//#include "stm32h743i_eval_sd.h"
-#include "stm32f769i_eval_qspi.h"
 
 /* USER CODE END Includes */
 
@@ -287,7 +279,7 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 					memset((uint8_t*) pSD->INTERNAL_BUFFER, 0xFF, sizeof(pSD->INTERNAL_BUFFER));
 
 					/* Read File */
-					if (Storage_OpenReadFile((uint8_t*) pSD->INTERNAL_BUFFER, sd_name[file_num]) == 0) //;
+					if (User_SDCARD_OpenRead_BMP_File((uint8_t*) pSD->INTERNAL_BUFFER, sd_name[file_num]) == 0) //;
 					{
 						sprintf((char*) qspi_print_str, "SDCARD READ[%02d] : FAILED   ", (file_num + 1));
 						BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) qspi_print_str, LEFT_MODE);

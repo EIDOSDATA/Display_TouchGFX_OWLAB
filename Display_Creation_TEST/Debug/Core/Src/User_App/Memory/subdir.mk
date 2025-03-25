@@ -8,18 +8,21 @@ C_SRCS += \
 ../Core/Src/User_App/Memory/user_mem_eeprom_data.c \
 ../Core/Src/User_App/Memory/user_mem_eeprom_system.c \
 ../Core/Src/User_App/Memory/user_mem_qspi.c \
+../Core/Src/User_App/Memory/user_mem_sdcard.c \
 ../Core/Src/User_App/Memory/user_mem_sdram.c 
 
 C_DEPS += \
 ./Core/Src/User_App/Memory/user_mem_eeprom_data.d \
 ./Core/Src/User_App/Memory/user_mem_eeprom_system.d \
 ./Core/Src/User_App/Memory/user_mem_qspi.d \
+./Core/Src/User_App/Memory/user_mem_sdcard.d \
 ./Core/Src/User_App/Memory/user_mem_sdram.d 
 
 OBJS += \
 ./Core/Src/User_App/Memory/user_mem_eeprom_data.o \
 ./Core/Src/User_App/Memory/user_mem_eeprom_system.o \
 ./Core/Src/User_App/Memory/user_mem_qspi.o \
+./Core/Src/User_App/Memory/user_mem_sdcard.o \
 ./Core/Src/User_App/Memory/user_mem_sdram.o 
 
 
@@ -30,7 +33,7 @@ Core/Src/User_App/Memory/%.o Core/Src/User_App/Memory/%.su Core/Src/User_App/Mem
 clean: clean-Core-2f-Src-2f-User_App-2f-Memory
 
 clean-Core-2f-Src-2f-User_App-2f-Memory:
-	-$(RM) ./Core/Src/User_App/Memory/user_mem_eeprom_data.cyclo ./Core/Src/User_App/Memory/user_mem_eeprom_data.d ./Core/Src/User_App/Memory/user_mem_eeprom_data.o ./Core/Src/User_App/Memory/user_mem_eeprom_data.su ./Core/Src/User_App/Memory/user_mem_eeprom_system.cyclo ./Core/Src/User_App/Memory/user_mem_eeprom_system.d ./Core/Src/User_App/Memory/user_mem_eeprom_system.o ./Core/Src/User_App/Memory/user_mem_eeprom_system.su ./Core/Src/User_App/Memory/user_mem_qspi.cyclo ./Core/Src/User_App/Memory/user_mem_qspi.d ./Core/Src/User_App/Memory/user_mem_qspi.o ./Core/Src/User_App/Memory/user_mem_qspi.su ./Core/Src/User_App/Memory/user_mem_sdram.cyclo ./Core/Src/User_App/Memory/user_mem_sdram.d ./Core/Src/User_App/Memory/user_mem_sdram.o ./Core/Src/User_App/Memory/user_mem_sdram.su
+	-$(RM) ./Core/Src/User_App/Memory/user_mem_eeprom_data.cyclo ./Core/Src/User_App/Memory/user_mem_eeprom_data.d ./Core/Src/User_App/Memory/user_mem_eeprom_data.o ./Core/Src/User_App/Memory/user_mem_eeprom_data.su ./Core/Src/User_App/Memory/user_mem_eeprom_system.cyclo ./Core/Src/User_App/Memory/user_mem_eeprom_system.d ./Core/Src/User_App/Memory/user_mem_eeprom_system.o ./Core/Src/User_App/Memory/user_mem_eeprom_system.su ./Core/Src/User_App/Memory/user_mem_qspi.cyclo ./Core/Src/User_App/Memory/user_mem_qspi.d ./Core/Src/User_App/Memory/user_mem_qspi.o ./Core/Src/User_App/Memory/user_mem_qspi.su ./Core/Src/User_App/Memory/user_mem_sdcard.cyclo ./Core/Src/User_App/Memory/user_mem_sdcard.d ./Core/Src/User_App/Memory/user_mem_sdcard.o ./Core/Src/User_App/Memory/user_mem_sdcard.su ./Core/Src/User_App/Memory/user_mem_sdram.cyclo ./Core/Src/User_App/Memory/user_mem_sdram.d ./Core/Src/User_App/Memory/user_mem_sdram.o ./Core/Src/User_App/Memory/user_mem_sdram.su
 
 .PHONY: clean-Core-2f-Src-2f-User_App-2f-Memory
 

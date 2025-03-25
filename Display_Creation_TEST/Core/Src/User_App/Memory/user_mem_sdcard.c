@@ -1,86 +1,34 @@
-/**
- ******************************************************************************
- * @file    Display/LTDC_PicturesFromSDCard/Src/fatfs_storage.c
- * @author  MCD Application Team
- * @brief   This file includes the Storage (FatFs) driver for the STM32H743I_EVAL
- *          application.
- ******************************************************************************
- * @attention
+/* USER CODE BEGIN Header */
+/*
+ * user_mem_sdcard.h
  *
- * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
- * All rights reserved.</center></h2>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted, provided that the following conditions are met:
- *
- * 1. Redistribution of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of STMicroelectronics nor the names of other
- *    contributors to this software may be used to endorse or promote products
- *    derived from this software without specific written permission.
- * 4. This software, including modifications and/or derivative works of this
- *    software, must execute solely and exclusively on microcontroller or
- *    microprocessor devices manufactured by or for STMicroelectronics.
- * 5. Redistribution and use of this software other than as permitted under
- *    this license is void and will automatically terminate your rights under
- *    this license.
- *
- * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
- * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
- * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
- * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- ******************************************************************************
+ *  Created on: Mar 25, 2025
+ *      Author: user
  */
 
+/* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "fatfs_storage.h"
+#include "user_mem_sdcard.h"
 #include "fatfs.h"
-/** @addtogroup STM32H743I_EVAL_FAT_FS
- * @{
- */
 
-/** @defgroup FATFS_STORAGE
- * @brief This file includes the Storage (FatFs) driver for the STM32H743I_EVAL
- *        application.
- * @{
- */
+/* USER CODE END Includes */
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 
-/** @defgroup FATFS_STORAGE_Private_Types
- * @{
- */
-/**
- * @}
- */
+/* USER CODE END PTD */
 
-/** @defgroup FATFS_STORAGE_Private_Defines
- * @{
- */
-/**
- * @}
- */
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
 
-/** @defgroup FATFS_STORAGE_Private_Macros
- * @{
- */
-/**
- * @}
- */
+/* USER CODE END PD */
 
-/** @defgroup FATFS_STORAGE_Private_Variables
- * @{
- */
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN PV */
 uint8_t sector[512];
 FATFS fs;
 FILINFO fno;
@@ -89,28 +37,28 @@ FIL F;
 const uint8_t SlidesCheck[2] =
 { 0x42, 0x4D };
 uint32_t BytesRead = 0;
+/* USER CODE END PV */
 
-/**
- * @}
- */
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN PFP */
+uint32_t User_SDCARD_Storage_Init(void);
+uint32_t User_SDCARD_OpenRead_BMP_File(uint8_t *Address, const char *BmpName);
+uint32_t User_SDCARD_GetDirectory_BMP_Files(const char *DirName, char *Files[]);
+uint32_t User_SDCARD_Check_BMP_File(const char *BmpName, uint32_t *FileLen);
+uint8_t User_Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
+/* Radial and Focus Timer Configuration */
 
-/** @defgroup FATFS_STORAGE_Private_FunctionPrototypes
- * @{
- */
-/**
- * @}
- */
+/* USER CODE END PFP */
 
-/** @defgroup FATFS_STORAGE_Private_Functions
- * @{
- */
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
 
 /**
  * @brief  SDCARD Initialization for FatFs
  * @param  None
  * @retval err : Error status (0=> success, 1=> fail)
  */
-uint32_t Storage_Init(void)
+uint32_t User_SDCARD_Storage_Init(void)
 {
 	BSP_SD_Init();
 
@@ -130,7 +78,7 @@ uint32_t Storage_Init(void)
  * @param  FileLen: the File lenght
  * @retval err: Error status (0=> success, 1=> fail)
  */
-uint32_t Storage_OpenReadFile(uint8_t *Address, const char *BmpName)
+uint32_t User_SDCARD_OpenRead_BMP_File(uint8_t *Address, const char *BmpName)
 {
 	uint32_t index = 0, size = 0, i1 = 0;
 	uint32_t BmpAddress;
@@ -207,7 +155,7 @@ uint32_t Storage_OpenReadFile(uint8_t *Address, const char *BmpName)
  * @param  FileLen: the File lenght
  * @retval err: Error status (0=> success, 1=> fail)
  */
-uint32_t Storage_CheckBitmapFile(const char *BmpName, uint32_t *FileLen)
+uint32_t User_SDCARD_Check_BMP_File(const char *BmpName, uint32_t *FileLen)
 {
 	if (f_mount(&fs, (TCHAR const*) "", 0))
 	{
@@ -220,7 +168,7 @@ uint32_t Storage_CheckBitmapFile(const char *BmpName, uint32_t *FileLen)
 
 	f_read(&F, sector, 6, (UINT*) &BytesRead);
 
-	if (Buffercmp((uint8_t*) SlidesCheck, (uint8_t*) sector, 2) != 0)
+	if (User_Buffercmp((uint8_t*) SlidesCheck, (uint8_t*) sector, 2) != 0)
 	{
 		return 3;
 	}
@@ -232,7 +180,7 @@ uint32_t Storage_CheckBitmapFile(const char *BmpName, uint32_t *FileLen)
  * @param  None
  * @retval The number of the found files
  */
-uint32_t Storage_GetDirectoryBitmapFiles(const char *DirName, char *Files[])
+uint32_t User_SDCARD_GetDirectory_BMP_Files(const char *DirName, char *Files[])
 {
 	//FATFS fs;
 	FILINFO fno;
@@ -295,7 +243,7 @@ uint32_t Storage_GetDirectoryBitmapFiles(const char *DirName, char *Files[])
  * @retval  0: pBuffer1 identical to pBuffer2
  *          1: pBuffer1 differs from pBuffer2
  */
-uint8_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
+uint8_t User_Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
 {
 	while (BufferLength--)
 	{
@@ -310,17 +258,5 @@ uint8_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
 
 	return 0;
 }
+/* USER CODE END 0 */
 
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

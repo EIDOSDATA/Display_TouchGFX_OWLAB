@@ -32,8 +32,8 @@
  * 	- SDRAM : FMC
  * 	- SDCARD : SDMMC
  * */
-#include "fatfs_storage.h"  /* Unused In this file */
-#include "n25q512a.h"  /* Unused In this file */
+#include "n25q512a.h" /* Unused In this file */
+#include "user_mem_sdcard.h" /* Unused In this file */
 #include "user_mem_eeprom_data.h"
 #include "user_mem_sdram.h"
 #include "user_mem_qspi.h"
