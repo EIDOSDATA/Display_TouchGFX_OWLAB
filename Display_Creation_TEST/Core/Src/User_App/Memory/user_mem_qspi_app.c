@@ -91,6 +91,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern IWDG_HandleTypeDef hiwdg1;
+extern QSPI_HandleTypeDef hqspi;
 
 _QSPI_ADDRESS_t *pQSPI = (_QSPI_ADDRESS_t*) QSPI_DEVICE_ADDR;
 
@@ -143,10 +144,15 @@ static uint8_t User_QSPI_Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint32_
  * */
 void User_QSPI_Init(void)
 {
-	User_QSPI_SaveData_To_FlashMemory();
-	//MX_QUADSPI_Init();
+#if 0
+	/* OLD CODE */
+	QSPI_ChkDataSave();
 	BSP_QSPI_Init();
 	BSP_QSPI_EnableMemoryMappedMode();
+#endif
+	User_QSPI_SaveData_To_FlashMemory();
+	MX_QUADSPI_Init();
+	User_QSPI_EnableMemoryMappedMode(&hqspi);
 }
 
 /*
@@ -196,12 +202,11 @@ void User_QSPI_SaveData_To_FlashMemory(void)
  * @param  None
  * @retval None
  */
-#if 1
 static void User_QSPI_Update_FlashMemory_Data(void)
 {
 	/* QSPI info structure */
-	static QSPI_Info pQSPI_Info;
-	uint8_t status;
+	static User_QSPI_Info pQSPI_Info;
+	uint32_t status;
 
 	QSPI_SetHint();
 
@@ -210,16 +215,21 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 		/* Watchdog clear  */
 		HAL_IWDG_Refresh(&hiwdg1);
 	}
+
 	/*##-1- Configure the QSPI device ##########################################*/
 	/* QSPI device configuration */
+#if 1
+	status = User_QSPI_Startup(0);
+#else
 	status = BSP_QSPI_Init();
+#endif
 
-	if (status == QSPI_NOT_SUPPORTED)
+	if (status == QSPI_MEMORY_NOT_SUPPORTED)
 	{
 		BSP_LCD_DisplayStringAt(20, 100, (uint8_t*) "QSPI Initialization : FAILED.", LEFT_MODE);
 		BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
 	}
-	else if (status == QSPI_ERROR)
+	else if (status == MEMORY_ERROR)
 	{
 		BSP_LCD_DisplayStringAt(20, 100, (uint8_t*) "QSPI Initialization : FAILED.", LEFT_MODE);
 		BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) "QSPI Writing Aborted.", LEFT_MODE);
@@ -237,7 +247,7 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 		pQSPI_Info.ProgPagesNumber = (uint32_t) 0x00;
 
 		/* Read the QSPI memory info */
-		BSP_QSPI_GetInfo(&pQSPI_Info);
+		User_QSPI_GetInfo(&pQSPI_Info);
 
 		/* Test the correctness */
 		if ((pQSPI_Info.FlashSize != 0x4000000) || (pQSPI_Info.EraseSectorSize != 0x1000) || (pQSPI_Info.ProgPageSize != 0x100) || (pQSPI_Info.EraseSectorsNumber != 16384) || (pQSPI_Info.ProgPagesNumber != 262144))
@@ -287,7 +297,7 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 					BSP_LCD_DisplayStringAt(20, 125, (uint8_t*) qspi_print_str, LEFT_MODE);
 
 					/* Read external memory by QSPI Communication. */
-					if (BSP_QSPI_Read((uint8_t*) pSD->LCD_IMAGE_BUFFER[0], (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != QSPI_OK)
+					if (User_QSPI_Read((uint8_t*) pSD->LCD_IMAGE_BUFFER[0], (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != MEMORY_OK)
 					{
 						fail++;
 						break;
@@ -315,7 +325,7 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 						 * */
 						for (uint32_t sector = 0; sector < MAXIMUM_MEM_SECTOR_SIZE; sector++)
 						{
-							if (BSP_QSPI_Erase_Block(((file_num * MAXIMUM_MEM_SECTOR_SIZE) + sector) * N25Q512A_SECTOR_SIZE) != QSPI_OK)
+							if (User_QSPI_Erase_Block(((file_num * MAXIMUM_MEM_SECTOR_SIZE) + sector) * N25Q512A_SECTOR_SIZE) != MEMORY_OK)
 							{
 								fail++;
 								sprintf((char*) qspi_print_str, "QSPI ERASED[%02d]  : FAILED  ", (file_num + 1));
@@ -338,7 +348,7 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 						}
 
 						/* Write external memory by QSPI Communication. */
-						if (BSP_QSPI_Write((uint8_t*) pSD->INTERNAL_BUFFER, (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != QSPI_OK)
+						if (User_QSPI_Write((uint8_t*) pSD->INTERNAL_BUFFER, (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != MEMORY_OK)
 						{
 							/* TODO : ERROR CHECK */
 							fail++;
@@ -353,7 +363,7 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 						}
 
 						/* Read external memory by QSPI Communication. */
-						if (BSP_QSPI_Read((uint8_t*) pSD->LCD_IMAGE_BUFFER[0], (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != QSPI_OK)
+						if (User_QSPI_Read((uint8_t*) pSD->LCD_IMAGE_BUFFER[0], (uint32_t) pQSPI_Addr->LCD_IMAGE_BUFFER[file_num], sizeof(pSD->INTERNAL_BUFFER)) != MEMORY_OK)
 						{
 							fail++;
 							break;
@@ -398,7 +408,6 @@ static void User_QSPI_Update_FlashMemory_Data(void)
 	}
 	BSP_LCD_Clear(LCD_COLOR_WHITE);
 }
-#endif
 
 /**
  * @brief  Display QSPI Demo Hint

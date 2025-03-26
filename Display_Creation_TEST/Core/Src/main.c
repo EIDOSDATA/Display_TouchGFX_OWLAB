@@ -113,7 +113,6 @@ static void MX_TIM4_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
-static void MX_QUADSPI_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -226,10 +225,10 @@ int main(void)
 	while (1)
 	{
 #if TOUCHGFX_ENABLED_MODE
-		/* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-		MX_TouchGFX_Process();
-		/* USER CODE BEGIN 3 */
+  MX_TouchGFX_Process();
+    /* USER CODE BEGIN 3 */
 #endif
 
 #if 1
@@ -598,11 +597,13 @@ static void MX_LTDC_Init(void)
  * @param None
  * @retval None
  */
-static void MX_QUADSPI_Init(void)
+void MX_QUADSPI_Init(void)
 {
 
 	/* USER CODE BEGIN QUADSPI_Init 0 */
-
+#if 1
+	User_QSPI_Startup_Parameter_Init();
+#endif
 	/* USER CODE END QUADSPI_Init 0 */
 
 	/* USER CODE BEGIN QUADSPI_Init 1 */
@@ -623,7 +624,9 @@ static void MX_QUADSPI_Init(void)
 		Error_Handler();
 	}
 	/* USER CODE BEGIN QUADSPI_Init 2 */
-
+#if 1
+	User_QSPI_Startup(0);
+#endif
 	/* USER CODE END QUADSPI_Init 2 */
 
 }

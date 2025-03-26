@@ -5,19 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.c \
 ../Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.c \
 ../Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.c \
 ../Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.c 
 
 C_DEPS += \
-./Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.d \
 ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.d \
 ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.d \
 ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.d 
 
 OBJS += \
-./Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.o \
 ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.o \
 ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.o \
 ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.o 
@@ -30,7 +27,7 @@ Core/Src/BSP/STM32H7_BSP/%.o Core/Src/BSP/STM32H7_BSP/%.su Core/Src/BSP/STM32H7_
 clean: clean-Core-2f-Src-2f-BSP-2f-STM32H7_BSP
 
 clean-Core-2f-Src-2f-BSP-2f-STM32H7_BSP:
-	-$(RM) ./Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.d ./Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.o ./Core/Src/BSP/STM32H7_BSP/stm32f769i_eval_qspi.su ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.d ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.o ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.su ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.d ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.o ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.su ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.d ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.o ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.su
+	-$(RM) ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.d ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.o ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval.su ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.d ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.o ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_eeprom.su ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.cyclo ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.d ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.o ./Core/Src/BSP/STM32H7_BSP/stm32h743i_eval_lcd.su
 
 .PHONY: clean-Core-2f-Src-2f-BSP-2f-STM32H7_BSP
 
