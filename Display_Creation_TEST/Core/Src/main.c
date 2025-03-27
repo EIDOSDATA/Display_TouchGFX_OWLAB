@@ -90,6 +90,8 @@ TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim13;
 
+UART_HandleTypeDef huart6;
+
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 SDRAM_HandleTypeDef hsdram1;
@@ -113,6 +115,7 @@ static void MX_TIM4_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
+static void MX_USART6_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -166,6 +169,7 @@ int main(void)
 	MX_I2C2_Init();
 	MX_USB_OTG_FS_PCD_Init();
 	MX_QUADSPI_Init();
+	MX_USART6_UART_Init();
 	/* USER CODE BEGIN 2 */
 #if (!TOUCHGFX_ENABLED_MODE)
 
@@ -880,6 +884,54 @@ static void MX_TIM13_Init(void)
 }
 
 /**
+ * @brief USART6 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_USART6_UART_Init(void)
+{
+
+	/* USER CODE BEGIN USART6_Init 0 */
+
+	/* USER CODE END USART6_Init 0 */
+
+	/* USER CODE BEGIN USART6_Init 1 */
+
+	/* USER CODE END USART6_Init 1 */
+	huart6.Instance = USART6;
+	huart6.Init.BaudRate = 115200;
+	huart6.Init.WordLength = UART_WORDLENGTH_8B;
+	huart6.Init.StopBits = UART_STOPBITS_1;
+	huart6.Init.Parity = UART_PARITY_NONE;
+	huart6.Init.Mode = UART_MODE_TX_RX;
+	huart6.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart6.Init.OverSampling = UART_OVERSAMPLING_16;
+	huart6.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+	huart6.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+	huart6.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+	if (HAL_UART_Init(&huart6) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	if (HAL_UARTEx_SetTxFifoThreshold(&huart6, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	if (HAL_UARTEx_SetRxFifoThreshold(&huart6, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	if (HAL_UARTEx_DisableFifoMode(&huart6) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	/* USER CODE BEGIN USART6_Init 2 */
+
+	/* USER CODE END USART6_Init 2 */
+
+}
+
+/**
  * @brief USB_OTG_FS Initialization Function
  * @param None
  * @retval None
@@ -977,15 +1029,15 @@ static void MX_GPIO_Init(void)
 	/* USER CODE END MX_GPIO_Init_1 */
 
 	/* GPIO Ports Clock Enable */
-	__HAL_RCC_GPIOC_CLK_ENABLE();
+	__HAL_RCC_GPIOE_CLK_ENABLE();
 	__HAL_RCC_GPIOI_CLK_ENABLE();
+	__HAL_RCC_GPIOC_CLK_ENABLE();
 	__HAL_RCC_GPIOF_CLK_ENABLE();
 	__HAL_RCC_GPIOH_CLK_ENABLE();
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 	__HAL_RCC_GPIOJ_CLK_ENABLE();
 	__HAL_RCC_GPIOG_CLK_ENABLE();
-	__HAL_RCC_GPIOE_CLK_ENABLE();
 	__HAL_RCC_GPIOD_CLK_ENABLE();
 	__HAL_RCC_GPIOK_CLK_ENABLE();
 
@@ -995,11 +1047,31 @@ static void MX_GPIO_Init(void)
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(TOUCH_RESET_GPIO_Port, TOUCH_RESET_Pin, GPIO_PIN_RESET);
 
+	/*Configure GPIO pins : CON_JF2_PE2_GPIO_Analog_Pin CON_JF2_PE3_GPIO_Analog_Pin CON_JF2_PE4_GPIO_Analog_Pin CON_JF2_PE5_GPIO_Analog_Pin
+	 CON_JF2_PE6_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF2_PE2_GPIO_Analog_Pin | CON_JF2_PE3_GPIO_Analog_Pin | CON_JF2_PE4_GPIO_Analog_Pin | CON_JF2_PE5_GPIO_Analog_Pin | CON_JF2_PE6_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : CON_JF1_PI8_GPIO_Analog_Pin CON_JF1_PI11_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PI8_GPIO_Analog_Pin | CON_JF1_PI11_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+
 	/*Configure GPIO pin : uSD_Detect_Pin */
 	GPIO_InitStruct.Pin = uSD_Detect_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(uSD_Detect_GPIO_Port, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : CON_JF1_PC14_GPIO_Analog_Pin CON_JF1_PC15_GPIO_Analog_Pin PC0 CON_JF2_PC1_GPIO_Analog_Pin
+	 CON_JF2_PC2_C_GPIO_Analog_Pin CON_JF2_PC3_C_GPIO_Analog_Pin PC4 CON_JF2_PC5_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PC14_GPIO_Analog_Pin | CON_JF1_PC15_GPIO_Analog_Pin | GPIO_PIN_0 | CON_JF2_PC1_GPIO_Analog_Pin | CON_JF2_PC2_C_GPIO_Analog_Pin | CON_JF2_PC3_C_GPIO_Analog_Pin | GPIO_PIN_4 | CON_JF2_PC5_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : Buzzer_Pin */
 	GPIO_InitStruct.Pin = Buzzer_Pin;
@@ -1008,11 +1080,48 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(Buzzer_GPIO_Port, &GPIO_InitStruct);
 
+	/*Configure GPIO pins : PA0 CON_JF1_PA1_GPIO_Analog_Pin CON_JF1_PA3_GPIO_Analog_Pin PA4
+	 CON_JF2_PA5_GPIO_Analog_Pin CON_JF1_PA7_GPIO_Analog_Pin PA8 CON_JF1_PA9_GPIO_Analog_Pin
+	 PA13 PA14 PA15 */
+	GPIO_InitStruct.Pin = GPIO_PIN_0 | CON_JF1_PA1_GPIO_Analog_Pin | CON_JF1_PA3_GPIO_Analog_Pin | GPIO_PIN_4 | CON_JF2_PA5_GPIO_Analog_Pin | CON_JF1_PA7_GPIO_Analog_Pin | GPIO_PIN_8 | CON_JF1_PA9_GPIO_Analog_Pin | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : CON_JF1_PH2_GPIO_Analog_Pin CON_JF1_PH3_GPIO_Analog_Pin CON_JF1_PH4_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PH2_GPIO_Analog_Pin | CON_JF1_PH3_GPIO_Analog_Pin | CON_JF1_PH4_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : CON_JF1_PB0_GPIO_Analog_Pin CON_JF2_PB12_GPIO_Analog_Pin CON_JF2_PB13_GPIO_Analog_Pin CON_JF2_PB14_GPIO_Analog_Pin
+	 CON_JF2_PB15_GPIO_Analog_Pin PB3 PB4 CON_JF2_PB8_GPIO_Analog_Pin
+	 CON_JF2_PB9_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PB0_GPIO_Analog_Pin | CON_JF2_PB12_GPIO_Analog_Pin | CON_JF2_PB13_GPIO_Analog_Pin | CON_JF2_PB14_GPIO_Analog_Pin | CON_JF2_PB15_GPIO_Analog_Pin | GPIO_PIN_3 | GPIO_PIN_4 | CON_JF2_PB8_GPIO_Analog_Pin | CON_JF2_PB9_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 	/*Configure GPIO pin : TOUCH_INT_Pin */
 	GPIO_InitStruct.Pin = TOUCH_INT_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(TOUCH_INT_GPIO_Port, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : CON_JF2_PD11_GPIO_Analog_Pin CON_JF2_PD3_GPIO_Analog_Pin CON_JF2_PD4_GPIO_Analog_Pin CON_JF2_PD5_GPIO_Analog_Pin
+	 CON_JF2_PD6_GPIO_Analog_Pin CON_JF2_PD7_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF2_PD11_GPIO_Analog_Pin | CON_JF2_PD3_GPIO_Analog_Pin | CON_JF2_PD4_GPIO_Analog_Pin | CON_JF2_PD5_GPIO_Analog_Pin | CON_JF2_PD6_GPIO_Analog_Pin | CON_JF2_PD7_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : PG2 PG3 CON_JF1_PG7_GPIO_Analog_Pin CON_JF1_PG9_GPIO_Analog_Pin
+	 CON_J1_PG10_GPIO_Analog_Pin CON_J1_PG11_GPIO_Analog_Pin CON_JF1_PG12_GPIO_Analog_Pin CON_JF1_PG13_GPIO_Analog_Pin
+	 CON_JF1_PG14_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3 | CON_JF1_PG7_GPIO_Analog_Pin | CON_JF1_PG9_GPIO_Analog_Pin | CON_J1_PG10_GPIO_Analog_Pin | CON_J1_PG11_GPIO_Analog_Pin | CON_JF1_PG12_GPIO_Analog_Pin | CON_JF1_PG13_GPIO_Analog_Pin | CON_JF1_PG14_GPIO_Analog_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : TOUCH_RESET_Pin */
 	GPIO_InitStruct.Pin = TOUCH_RESET_Pin;
