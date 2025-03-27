@@ -257,9 +257,7 @@ int main(void)
 #if 1
 		/* MCP4251 Example 2: Breathing Light Effect (Channel 1) */
 		//HAL_GPIO_TogglePin(CON_JF1_MCP4251_CS_GPIO_Port, CON_JF1_MCP4251_CS_Pin);
-		User_MCP4251_SetRaw(&pot, 1, 100);
-		HAL_Delay(1000);
-		//User_MCP4251_Test_Fucntion();
+		User_MCP4251_Test_Fucntion();
 #endif
 #if 0
 		/* Display Test */
@@ -1141,9 +1139,9 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(uSD_Detect_GPIO_Port, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : CON_JF1_PC14_GPIO_Analog_Pin CON_JF1_PC15_GPIO_Analog_Pin PC0 CON_JF2_PC1_GPIO_Analog_Pin
-	 CON_JF2_PC2_C_GPIO_Analog_Pin CON_JF2_PC3_C_GPIO_Analog_Pin PC4 CON_JF2_PC5_GPIO_Analog_Pin */
-	GPIO_InitStruct.Pin = CON_JF1_PC14_GPIO_Analog_Pin | CON_JF1_PC15_GPIO_Analog_Pin | GPIO_PIN_0 | CON_JF2_PC1_GPIO_Analog_Pin | CON_JF2_PC2_C_GPIO_Analog_Pin | CON_JF2_PC3_C_GPIO_Analog_Pin | GPIO_PIN_4 | CON_JF2_PC5_GPIO_Analog_Pin;
+	/*Configure GPIO pins : CON_JF1_PC14_GPIO_Analog_Pin CON_JF1_PC15_GPIO_Analog_Pin CON_JF2_PC1_GPIO_Analog_Pin CON_JF2_PC2_C_GPIO_Analog_Pin
+	 CON_JF2_PC3_C_GPIO_Analog_Pin CON_JF2_PC5_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PC14_GPIO_Analog_Pin | CON_JF1_PC15_GPIO_Analog_Pin | CON_JF2_PC1_GPIO_Analog_Pin | CON_JF2_PC2_C_GPIO_Analog_Pin | CON_JF2_PC3_C_GPIO_Analog_Pin | CON_JF2_PC5_GPIO_Analog_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
@@ -1155,10 +1153,9 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(Buzzer_GPIO_Port, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : PA0 CON_JF1_PA1_GPIO_Analog_Pin CON_JF1_PA3_GPIO_Analog_Pin PA4
-	 CON_JF2_PA5_GPIO_Analog_Pin CON_JF1_PA7_GPIO_Analog_Pin PA8 CON_JF1_PA9_GPIO_Analog_Pin
-	 PA13 PA14 PA15 */
-	GPIO_InitStruct.Pin = GPIO_PIN_0 | CON_JF1_PA1_GPIO_Analog_Pin | CON_JF1_PA3_GPIO_Analog_Pin | GPIO_PIN_4 | CON_JF2_PA5_GPIO_Analog_Pin | CON_JF1_PA7_GPIO_Analog_Pin | GPIO_PIN_8 | CON_JF1_PA9_GPIO_Analog_Pin | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+	/*Configure GPIO pins : CON_JF1_PA1_GPIO_Analog_Pin CON_JF1_PA3_GPIO_Analog_Pin CON_JF2_PA5_GPIO_Analog_Pin CON_JF1_PA7_GPIO_Analog_Pin
+	 CON_JF1_PA9_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PA1_GPIO_Analog_Pin | CON_JF1_PA3_GPIO_Analog_Pin | CON_JF2_PA5_GPIO_Analog_Pin | CON_JF1_PA7_GPIO_Analog_Pin | CON_JF1_PA9_GPIO_Analog_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -1170,9 +1167,8 @@ static void MX_GPIO_Init(void)
 	HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : CON_JF1_PB0_GPIO_Analog_Pin CON_JF2_PB12_GPIO_Analog_Pin CON_JF2_PB13_GPIO_Analog_Pin CON_JF2_PB14_GPIO_Analog_Pin
-	 CON_JF2_PB15_GPIO_Analog_Pin PB3 PB4 CON_JF2_PB8_GPIO_Analog_Pin
-	 CON_JF2_PB9_GPIO_Analog_Pin */
-	GPIO_InitStruct.Pin = CON_JF1_PB0_GPIO_Analog_Pin | CON_JF2_PB12_GPIO_Analog_Pin | CON_JF2_PB13_GPIO_Analog_Pin | CON_JF2_PB14_GPIO_Analog_Pin | CON_JF2_PB15_GPIO_Analog_Pin | GPIO_PIN_3 | GPIO_PIN_4 | CON_JF2_PB8_GPIO_Analog_Pin | CON_JF2_PB9_GPIO_Analog_Pin;
+	 CON_JF2_PB15_GPIO_Analog_Pin CON_JF2_PB8_GPIO_Analog_Pin CON_JF2_PB9_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PB0_GPIO_Analog_Pin | CON_JF2_PB12_GPIO_Analog_Pin | CON_JF2_PB13_GPIO_Analog_Pin | CON_JF2_PB14_GPIO_Analog_Pin | CON_JF2_PB15_GPIO_Analog_Pin | CON_JF2_PB8_GPIO_Analog_Pin | CON_JF2_PB9_GPIO_Analog_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -1190,9 +1186,8 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : PG2 PG3 CON_JF1_PG7_GPIO_Analog_Pin CON_J1_PG10_GPIO_Analog_Pin
-	 CON_J1_PG11_GPIO_Analog_Pin */
-	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3 | CON_JF1_PG7_GPIO_Analog_Pin | CON_J1_PG10_GPIO_Analog_Pin | CON_J1_PG11_GPIO_Analog_Pin;
+	/*Configure GPIO pins : CON_JF1_PG7_GPIO_Analog_Pin CON_J1_PG10_GPIO_Analog_Pin CON_J1_PG11_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = CON_JF1_PG7_GPIO_Analog_Pin | CON_J1_PG10_GPIO_Analog_Pin | CON_J1_PG11_GPIO_Analog_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);

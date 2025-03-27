@@ -34,6 +34,7 @@
 /* USER CODE BEGIN PV */
 extern SPI_HandleTypeDef hspi6;
 MCP4251_Device pot; /* Declaration of Device Instance */
+static uint8_t test_func_val = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -84,20 +85,19 @@ void MCP4251_DigitalPotInitTcon();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 MCP4251_Status User_MCP4251_Test_Fucntion(void)
 {
 	/* Example 2: Breathing Light Effect (Channel 1) */
-	for (uint8_t val = 0; val < 255; val++)
+	for (test_func_val = 0; test_func_val < 255; test_func_val++)
 	{
-		User_MCP4251_SetRaw(&pot, 1, val);
-		HAL_Delay(10);
+		User_MCP4251_SetRaw(&pot, 1, test_func_val);
+		HAL_Delay(100);
 	}
 
-	for (uint8_t val = 255; val > 0; val--)
+	for (test_func_val = 255; test_func_val > 0; test_func_val--)
 	{
-		User_MCP4251_SetRaw(&pot, 1, val);
-		HAL_Delay(10);
+		User_MCP4251_SetRaw(&pot, 1, test_func_val);
+		HAL_Delay(100);
 	}
 
 #if 0
@@ -188,6 +188,7 @@ float User_MCP4251_ToResistance(MCP4251_Device *dev, uint8_t raw_value)
 /* Private function: send command + data */
 static MCP4251_Status User_Send_Command_Raw(MCP4251_Device *dev, uint8_t cmd, uint8_t data)
 {
+#if 1
 	uint8_t tx_buf =
 	{ cmd, data };
 	HAL_StatusTypeDef hal_status;
@@ -196,6 +197,24 @@ static MCP4251_Status User_Send_Command_Raw(MCP4251_Device *dev, uint8_t cmd, ui
 	hal_status = HAL_SPI_Transmit(dev->hspi, tx_buf, sizeof(tx_buf), 100);
 	HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_SET);
 	return (hal_status == HAL_OK) ? MCP4251_OK : MCP4251_SPI_ERROR;
+
+#else
+	/* TODO : CHECK */
+	/* Command byte format: 0b00CC0001 (CC=channel: 00=channel 0, 01=channel 1) */
+	uint8_t channel = 0;
+	uint8_t test_cmd = 0x00 | ((channel & 0x01) << 4);
+	HAL_GPIO_WritePin(MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, GPIO_PIN_RESET); /* CS PIN LOW */
+	if (HAL_SPI_Transmit(&hspi6, &test_cmd, 1, 10) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	if (HAL_SPI_Transmit(&hspi6, &data, 1, 10) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	HAL_GPIO_WritePin(MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, GPIO_PIN_SET); /* CS PIN HIGH */
+	return MCP4251_OK;
+#endif
 }
 
 #if 0
