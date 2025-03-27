@@ -162,8 +162,11 @@ MCP4251_Status User_MCP4251_ReadRaw(MCP4251_Device *dev, uint8_t channel, uint8_
 	}
 
 	uint8_t cmd = (channel == 0) ? USER_MCP4251_READ_WIPER0 : USER_MCP4251_READ_WIPER1;
+	uint8_t rx_data[2];
+#if 0
 	uint8_t rx_data =
 	{ 0 };
+#endif
 	HAL_StatusTypeDef hal_status;
 
 	HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_RESET);
@@ -175,7 +178,7 @@ MCP4251_Status User_MCP4251_ReadRaw(MCP4251_Device *dev, uint8_t channel, uint8_
 		return MCP4251_SPI_ERROR;
 	}
 
-	*value = rx_data; /* The second byte is the data. */
+	*value = rx_data[1]; /* The second byte is the data. */
 	return MCP4251_OK;
 }
 
@@ -188,10 +191,12 @@ float User_MCP4251_ToResistance(MCP4251_Device *dev, uint8_t raw_value)
 /* Private function: send command + data */
 static MCP4251_Status User_Send_Command_Raw(MCP4251_Device *dev, uint8_t cmd, uint8_t data)
 {
-#if 1
-	uint8_t tx_buf =
-	{ cmd, data };
+#if 0
+	uint8_t tx_buf[2];
 	HAL_StatusTypeDef hal_status;
+
+	tx_buf[0] = cmd;
+	tx_buf[1] = data;
 
 	HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_RESET);
 	hal_status = HAL_SPI_Transmit(dev->hspi, tx_buf, sizeof(tx_buf), 100);
@@ -201,7 +206,7 @@ static MCP4251_Status User_Send_Command_Raw(MCP4251_Device *dev, uint8_t cmd, ui
 #else
 	/* TODO : CHECK */
 	/* Command byte format: 0b00CC0001 (CC=channel: 00=channel 0, 01=channel 1) */
-	uint8_t channel = 0;
+	uint8_t channel = cmd;
 	uint8_t test_cmd = 0x00 | ((channel & 0x01) << 4);
 	HAL_GPIO_WritePin(MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, GPIO_PIN_RESET); /* CS PIN LOW */
 	if (HAL_SPI_Transmit(&hspi6, &test_cmd, 1, 10) != HAL_OK)
@@ -284,7 +289,7 @@ uint8_t User_MCP4251_Read(uint8_t channel)
 	uint8_t cmd = 0x0C | ((channel & 0x01) << 4); /* Read the command */
 	uint8_t rx_data =
 	{ 0 };
-	// uint8_t vrx_data[2];
+	// uint8_t rx_data[2];
 
 	HAL_GPIO_WritePin(MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(&hspi6, &cmd, 1, 10);

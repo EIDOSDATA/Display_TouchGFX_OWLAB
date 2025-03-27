@@ -234,8 +234,13 @@ int main(void)
 	 * */
 	User_MCP4251_Init(&pot, &hspi6, MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, 100000.0f);
 
-	/* MCP4251 Example 1: Set channel 0 to 50kΩ */
+	/*
+	 * MCP4251 Example 1
+	 *  - Set channel 0 to 50kΩ
+	 *  - Set channel 1 to 50kΩ
+	 * */
 	User_MCP4251_SetResistance(&pot, 0, 50000.0f);
+	User_MCP4251_SetResistance(&pot, 1, 50000.0f);
 
 	/* USER CODE END 2 */
 
@@ -256,8 +261,11 @@ int main(void)
 #endif
 #if 1
 		/* MCP4251 Example 2: Breathing Light Effect (Channel 1) */
-		//HAL_GPIO_TogglePin(CON_JF1_MCP4251_CS_GPIO_Port, CON_JF1_MCP4251_CS_Pin);
-		User_MCP4251_Test_Fucntion();
+		User_MCP4251_SetRaw(&pot, 1, 255);
+		HAL_Delay(100);
+		User_MCP4251_SetRaw(&pot, 0, 255);
+		HAL_Delay(100);
+		//User_MCP4251_Test_Fucntion();
 #endif
 #if 0
 		/* Display Test */
