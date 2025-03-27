@@ -23,8 +23,7 @@
 #define __MAIN_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -36,6 +35,7 @@ extern "C"
 #include "string.h"
 #include "stdbool.h"
 #include "stdio.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -60,7 +60,6 @@ void Error_Handler(void);
 void MX_I2C1_Init(void);
 void MX_QUADSPI_Init(void);
 void MX_IWDG1_Init(void);
-void MX_SPI6_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -157,12 +156,12 @@ void MX_SPI6_Init(void);
 #define CON_JF2_PD6_GPIO_Analog_GPIO_Port GPIOD
 #define CON_JF2_PD7_GPIO_Analog_Pin GPIO_PIN_7
 #define CON_JF2_PD7_GPIO_Analog_GPIO_Port GPIOD
-#define CON_JF1_PG9_GPIO_Analog_Pin GPIO_PIN_9
-#define CON_JF1_PG9_GPIO_Analog_GPIO_Port GPIOG
+#define CON_JF1_MCP4251_CS_Pin GPIO_PIN_9
+#define CON_JF1_MCP4251_CS_GPIO_Port GPIOG
 #define CON_J1_PG10_GPIO_Analog_Pin GPIO_PIN_10
 #define CON_J1_PG10_GPIO_Analog_GPIO_Port GPIOG
-#define CON_JF1_MCP4251_CS_Pin GPIO_PIN_11
-#define CON_JF1_MCP4251_CS_GPIO_Port GPIOG
+#define CON_J1_PG11_GPIO_Analog_Pin GPIO_PIN_11
+#define CON_J1_PG11_GPIO_Analog_GPIO_Port GPIOG
 #define CON_JF1_MCP4251_MISO_Pin GPIO_PIN_12
 #define CON_JF1_MCP4251_MISO_GPIO_Port GPIOG
 #define CON_JF1_MCP4251_SCK_Pin GPIO_PIN_13

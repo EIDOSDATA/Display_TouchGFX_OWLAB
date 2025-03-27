@@ -119,6 +119,7 @@ static void MX_SDMMC1_SD_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_USART6_UART_Init(void);
+static void MX_SPI6_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -173,18 +174,8 @@ int main(void)
 	MX_USB_OTG_FS_PCD_Init();
 	MX_QUADSPI_Init();
 	MX_USART6_UART_Init();
+	MX_SPI6_Init();
 	/* USER CODE BEGIN 2 */
-
-	/*
-	 * Initialize MCP4251 (assuming a 100kΩ model)
-	 * 	CHIP : MCP4251-104E/ST >> 100kΩ
-	 * */
-	User_MCP4251_Init(&pot, &hspi6, MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, 100000.0f);
-
-	/* Example 1: Set channel 0 to 50kΩ */
-	User_MCP4251_SetResistance(&pot, 0, 50000.0f);
-
-	//User_MCP4251_Init();
 
 #if (!TOUCHGFX_ENABLED_MODE)
 
@@ -237,6 +228,15 @@ int main(void)
 
 	User_Main_App();
 
+	/*
+	 * Initialize MCP4251 (assuming a 100kΩ model)
+	 * 	CHIP : MCP4251-104E/ST >> 100kΩ
+	 * */
+	User_MCP4251_Init(&pot, &hspi6, MCP4251_CS_GPIO_Port, MCP4251_CS_Pin, 100000.0f);
+
+	/* MCP4251 Example 1: Set channel 0 to 50kΩ */
+	User_MCP4251_SetResistance(&pot, 0, 50000.0f);
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -250,18 +250,23 @@ int main(void)
     /* USER CODE BEGIN 3 */
 #endif
 
-#if 1
+#if 0
 		/* Encoder Handle Operation */
 		User_Handle_Encoder_Operation();
-
-		/* Example 2: Breathing Light Effect (Channel 1) */
-		User_MCP4251_Test_Fucntion();
-
-#else
-		/* Display Test */
+#endif
+#if 1
+		/* MCP4251 Example 2: Breathing Light Effect (Channel 1) */
+		//HAL_GPIO_TogglePin(CON_JF1_MCP4251_CS_GPIO_Port, CON_JF1_MCP4251_CS_Pin);
+		User_MCP4251_SetRaw(&pot, 1, 100);
+		HAL_Delay(1000);
+		//User_MCP4251_Test_Fucntion();
+#endif
 #if 0
+		/* Display Test */
 		Test_Image_Print();
 #endif
+#if 0
+		/* Display Key Test */
 		Test_Touch_Key_Event();
 #endif
 	}
@@ -686,7 +691,7 @@ static void MX_SDMMC1_SD_Init(void)
  * @param None
  * @retval None
  */
-void MX_SPI6_Init(void)
+static void MX_SPI6_Init(void)
 {
 
 	/* USER CODE BEGIN SPI6_Init 0 */
@@ -1185,9 +1190,9 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : PG2 PG3 CON_JF1_PG7_GPIO_Analog_Pin CON_JF1_PG9_GPIO_Analog_Pin
-	 CON_J1_PG10_GPIO_Analog_Pin */
-	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3 | CON_JF1_PG7_GPIO_Analog_Pin | CON_JF1_PG9_GPIO_Analog_Pin | CON_J1_PG10_GPIO_Analog_Pin;
+	/*Configure GPIO pins : PG2 PG3 CON_JF1_PG7_GPIO_Analog_Pin CON_J1_PG10_GPIO_Analog_Pin
+	 CON_J1_PG11_GPIO_Analog_Pin */
+	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3 | CON_JF1_PG7_GPIO_Analog_Pin | CON_J1_PG10_GPIO_Analog_Pin | CON_J1_PG11_GPIO_Analog_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
