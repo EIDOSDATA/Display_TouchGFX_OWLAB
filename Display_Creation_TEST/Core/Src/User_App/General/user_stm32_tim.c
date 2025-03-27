@@ -42,8 +42,6 @@
 /* USER CODE BEGIN PFP */
 void TIM_Init(TIM_HandleTypeDef *htim);
 
-/* Radial and Focus Timer Configuration */
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/

@@ -23,7 +23,8 @@
 #define __MAIN_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -59,6 +60,7 @@ void Error_Handler(void);
 void MX_I2C1_Init(void);
 void MX_QUADSPI_Init(void);
 void MX_IWDG1_Init(void);
+void MX_SPI6_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -159,14 +161,14 @@ void MX_IWDG1_Init(void);
 #define CON_JF1_PG9_GPIO_Analog_GPIO_Port GPIOG
 #define CON_J1_PG10_GPIO_Analog_Pin GPIO_PIN_10
 #define CON_J1_PG10_GPIO_Analog_GPIO_Port GPIOG
-#define CON_J1_PG11_GPIO_Analog_Pin GPIO_PIN_11
-#define CON_J1_PG11_GPIO_Analog_GPIO_Port GPIOG
-#define CON_JF1_PG12_SPI6_MISO_Pin GPIO_PIN_12
-#define CON_JF1_PG12_SPI6_MISO_GPIO_Port GPIOG
-#define CON_JF1_PG13_SPI6_SCK_Pin GPIO_PIN_13
-#define CON_JF1_PG13_SPI6_SCK_GPIO_Port GPIOG
-#define CON_JF1_PG14_SPI6_MOSI_Pin GPIO_PIN_14
-#define CON_JF1_PG14_SPI6_MOSI_GPIO_Port GPIOG
+#define CON_JF1_MCP4251_CS_Pin GPIO_PIN_11
+#define CON_JF1_MCP4251_CS_GPIO_Port GPIOG
+#define CON_JF1_MCP4251_MISO_Pin GPIO_PIN_12
+#define CON_JF1_MCP4251_MISO_GPIO_Port GPIOG
+#define CON_JF1_MCP4251_SCK_Pin GPIO_PIN_13
+#define CON_JF1_MCP4251_SCK_GPIO_Port GPIOG
+#define CON_JF1_MCP4251_MOSI_Pin GPIO_PIN_14
+#define CON_JF1_MCP4251_MOSI_GPIO_Port GPIOG
 #define TOUCH_RESET_Pin GPIO_PIN_5
 #define TOUCH_RESET_GPIO_Port GPIOB
 #define TOUCH_I2C1_SCL_Pin GPIO_PIN_6

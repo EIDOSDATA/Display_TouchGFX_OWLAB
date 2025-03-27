@@ -23,6 +23,7 @@
 #include "user_buzzer.h"
 #include "user_encoder.h"
 #include "user_gpio_ctrl.h" /* Unused In this file */
+#include "user_mcp4251.h"
 #include "user_stm32_tim.h"
 
 /*
@@ -244,7 +245,6 @@ void User_Main_App(void)
 	{
 		touch_btns[i].prev_state = touch_btns[i].cur_state;
 	}
-
 }
 
 /* USER CODE BEGIN 0 */

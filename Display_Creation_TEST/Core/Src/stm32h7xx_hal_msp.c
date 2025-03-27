@@ -782,7 +782,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
     PG13     ------> SPI6_SCK
     PG14     ------> SPI6_MOSI
     */
-    GPIO_InitStruct.Pin = CON_JF1_PG12_SPI6_MISO_Pin|CON_JF1_PG13_SPI6_SCK_Pin|CON_JF1_PG14_SPI6_MOSI_Pin;
+    GPIO_InitStruct.Pin = CON_JF1_MCP4251_MISO_Pin|CON_JF1_MCP4251_SCK_Pin|CON_JF1_MCP4251_MOSI_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -818,7 +818,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
     PG13     ------> SPI6_SCK
     PG14     ------> SPI6_MOSI
     */
-    HAL_GPIO_DeInit(GPIOG, CON_JF1_PG12_SPI6_MISO_Pin|CON_JF1_PG13_SPI6_SCK_Pin|CON_JF1_PG14_SPI6_MOSI_Pin);
+    HAL_GPIO_DeInit(GPIOG, CON_JF1_MCP4251_MISO_Pin|CON_JF1_MCP4251_SCK_Pin|CON_JF1_MCP4251_MOSI_Pin);
 
     /* USER CODE BEGIN SPI6_MspDeInit 1 */
 
