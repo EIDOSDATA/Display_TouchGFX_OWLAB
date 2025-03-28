@@ -261,10 +261,12 @@ int main(void)
 #endif
 #if 1
 		/* MCP4251 Example 2: Breathing Light Effect (Channel 1) */
-		User_MCP4251_SetRaw(&pot, 1, 255);
+
+		User_MCP4251_SetRaw(&pot, 1, 0);
 		HAL_Delay(100);
-		User_MCP4251_SetRaw(&pot, 0, 255);
+		User_MCP4251_SetRaw(&pot, 0, 0);
 		HAL_Delay(100);
+
 		//User_MCP4251_Test_Fucntion();
 #endif
 #if 0
@@ -763,9 +765,9 @@ static void MX_TIM1_Init(void)
 
 	/* USER CODE END TIM1_Init 1 */
 	htim1.Instance = TIM1;
-	htim1.Init.Prescaler = (200 - 1);
+	htim1.Init.Prescaler = 0;
 	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim1.Init.Period = (6993 - 1);
+	htim1.Init.Period = (440 - 1);
 	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim1.Init.RepetitionCounter = 0;
 	htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
@@ -781,7 +783,7 @@ static void MX_TIM1_Init(void)
 		Error_Handler();
 	}
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = 3497 - 1;
+	sConfigOC.Pulse = (220 - 1);
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
@@ -794,7 +796,7 @@ static void MX_TIM1_Init(void)
 	sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
 	sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
 	sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
-	sBreakDeadTimeConfig.DeadTime = 210;
+	sBreakDeadTimeConfig.DeadTime = 5;
 	sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
 	sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
 	sBreakDeadTimeConfig.BreakFilter = 0;

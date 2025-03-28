@@ -191,6 +191,7 @@ float User_MCP4251_ToResistance(MCP4251_Device *dev, uint8_t raw_value)
 /* Private function: send command + data */
 static MCP4251_Status User_Send_Command_Raw(MCP4251_Device *dev, uint8_t cmd, uint8_t data)
 {
+	/* TODO : CHECK */
 #if 0
 	uint8_t tx_buf[2];
 	HAL_StatusTypeDef hal_status;
@@ -204,7 +205,6 @@ static MCP4251_Status User_Send_Command_Raw(MCP4251_Device *dev, uint8_t cmd, ui
 	return (hal_status == HAL_OK) ? MCP4251_OK : MCP4251_SPI_ERROR;
 
 #else
-	/* TODO : CHECK */
 	/* Command byte format: 0b00CC0001 (CC=channel: 00=channel 0, 01=channel 1) */
 	uint8_t channel = cmd;
 	uint8_t test_cmd = 0x00 | ((channel & 0x01) << 4);
